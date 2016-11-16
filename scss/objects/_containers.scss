@@ -1,0 +1,16 @@
+.o-block-left {
+    display: inline-block;
+    text-align: left;
+}
+
+.o-others {
+    background: $color-gray-light;
+    border: 1px solid $color-gray;
+    font-size: 13px;
+    font-weight: bold;
+    color: #222;
+    padding: 30px 0;
+    margin-top: 14px;
+    width: 350px;
+    text-align: center;
+}
