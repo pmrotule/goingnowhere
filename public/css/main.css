@@ -1,4 +1,45 @@
-/* @include prefix(user-select, none, webkit moz ms o); */
+/*------------------------------------*  #MAIN
+\*------------------------------------*/
+/**
+ * CONTENTS
+ *
+ * SETTINGS
+ * Colors..................Color variables.
+ * Global..................Global variables and config.
+ *
+ * TOOLS
+ * Mixins..................Mixins with parameters.
+ * Objects.................Mixins as object (without parameters).
+ *
+ * GENERIC
+ * Normalize.css...........Library to render elements more consistently.
+ * Reset...................Reset the properties of all elements.
+ *
+ * ELEMENTS
+ * Page....................Page-level styles (HTML element).
+ * Links...................Hyperlink styles.
+ * Inputs..................Input styles.
+ *
+ * OBJECTS
+ * Containers..............Container elements.
+ *
+ * COMPONENTS
+ * Auto-complete-github....Auto-complete-github styles.
+ * Page-home...............The main page styles.
+ *
+ * TRUMPS
+ * Prevent.................Helpers to prevent default functionalities.
+ */
+/*------------------------------------*  #COLORS
+\*------------------------------------*/
+/*------------------------------------*  #GLOBAL
+\*------------------------------------*/
+/*------------------------------------*  #AUTO-COMPLETE-GITHUB-SETTINGS
+\*------------------------------------*/
+/*------------------------------------*  #MIXINS
+\*------------------------------------*/
+/*------------------------------------*  #OBJECTS-MIXINS
+\*------------------------------------*/
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 /**
  * 1. Set default font family to sans-serif.
@@ -357,6 +398,8 @@ td,
 th {
   padding: 0; }
 
+/*------------------------------------*  #RESET
+\*------------------------------------*/
 * {
   margin: 0;
   padding: 0;
@@ -369,6 +412,8 @@ textarea:focus,
 button:focus {
   outline: none; }
 
+/*------------------------------------*  #PAGE
+\*------------------------------------*/
 html {
   font-family: Helvetica, sans-serif, Arial;
   font-size: 16px;
@@ -377,6 +422,8 @@ html {
   background-color: #f0f0f0;
   text-align: center; }
 
+/*------------------------------------*  #LINKS
+\*------------------------------------*/
 a {
   font-family: Helvetica, sans-serif, Arial;
   font-size: 16px;
@@ -387,6 +434,8 @@ a {
   a:hover {
     text-decoration: underline; }
 
+/*------------------------------------*  #INPUTS
+\*------------------------------------*/
 input::-webkit-input-placeholder {
   color: #bbb; }
 
@@ -399,6 +448,8 @@ input::-moz-placeholder {
 input:-ms-input-placeholder {
   color: #bbb; }
 
+/*------------------------------------*  #CONTAINERS
+\*------------------------------------*/
 .o-block-left {
   display: inline-block;
   text-align: left; }
@@ -414,6 +465,8 @@ input:-ms-input-placeholder {
   width: 350px;
   text-align: center; }
 
+/*------------------------------------*  #AUTO-COMPLETE-GITHUB
+\*------------------------------------*/
 .auto-complete-github {
   position: relative;
   background: #fff;
@@ -478,9 +531,13 @@ input:-ms-input-placeholder {
           .auto-complete-github__menu-list-item-name-b--highlight {
             color: #fff; }
 
+/*------------------------------------*  #PAGE-HOME
+\*------------------------------------*/
 .auto-complete-parent {
   padding: 4vw 16px 0; }
 
+/*------------------------------------*  #PREVENT
+\*------------------------------------*/
 .noselect {
   -webkit-user-select: none !important;
   -moz-user-select: none !important;
