@@ -157,7 +157,7 @@ auto_complete_github.highlight_item = function(anchor)
         var bold_highlighted =
         item_highlighted.querySelectorAll("." + item_class + "-name-b");
 
-        for (var i in bold_highlighted)
+        for (var i = 0; i < bold_highlighted.length; i++)
         { bold_highlighted[i].className = item_class + "-name-b"; }
     }
 
@@ -166,7 +166,7 @@ auto_complete_github.highlight_item = function(anchor)
     var bold_elements =
     anchor.querySelectorAll("." + item_class + "-name-b");
 
-    for (var i in bold_elements)
+    for (var i = 0; i < bold_elements.length; i++)
     {
         bold_elements[i].className =
         item_class + "-name-b " + item_class + "-name-b--highlight";
