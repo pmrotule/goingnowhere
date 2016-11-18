@@ -1,89 +1,90 @@
 .auto-complete-github {
+  position: relative;
+  background: #fff;
+  min-width: 320px;
+  width: 320px;
+  cursor: default;
+
+  &__search-icon {
     position: relative;
-    background: #fff;
-    min-width: 320px;
-    width: 320px;
-    cursor: default;
+    vertical-align: top;
+    margin: ($auto-complete-github_search-icon-vmargin + 1) 14px
+            ($auto-complete-github_search-icon-vmargin - 1);
+    width: $auto-complete-github_search-icon-height;
+    height: $auto-complete-github_search-icon-height;
+    z-index: 2;
+  }
 
-    &__search-icon {
-        position: relative;
-        vertical-align: top;
-        margin: ($auto-complete-github_search-icon-vmargin + 1) 14px ($auto-complete-github_search-icon-vmargin - 1);
-        width: $auto-complete-github_search-icon-height;
-        height: $auto-complete-github_search-icon-height;
-        z-index: 2;
-    }
+  &__input {
+    position: relative;
+    vertical-align: top;
+    line-height: $auto-complete-github_height;
+    height: $auto-complete-github_height;
+    font-size: 18px;
+    width: 270px;
+    z-index: 2;
+  }
 
-    &__input {
-        position: relative;
-        vertical-align: top;
-        line-height: $auto-complete-github_height;
-        height: $auto-complete-github_height;
-        font-size: 18px;
-        width: 270px;
-        z-index: 2;
-    }
+  &__menu {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    padding-top: $auto-complete-github_height;
+    z-index: 1;
+    @include prefix(box-shadow, $base-box-shadow, webkit moz);
 
-    &__menu {
-        position: absolute;
-        width: 100%;
-        top: 0;
-        padding-top: $auto-complete-github_height;
-        z-index: 1;
-        @include prefix(box-shadow, $base-box-shadow, webkit moz);
+    &-list {
 
-        &-list {
+      &--visible {
+        display: block;
+      }
 
-            &--visible {
-                display: block;
-            }
+      &--hidden {
+        display: none;
+      }
 
-            &--hidden {
-                display: none;
-            }
+      &-title {
+        background: #f6f6f6;
+        font-size: 12px;
+        font-weight: bold;
+        color: #777;
+        padding: 11px 10px 10px;
+        border: 0;
+      }
 
-            &-title {
-                background: #f6f6f6;
-                font-size: 12px;
-                font-weight: bold;
-                color: #777;
-                padding: 11px 10px 10px;
-                border: 0;
-            }
+      &-item {
+        display: block;
+        background: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.03);
+        text-decoration: none !important;
+        cursor: pointer;
 
-            &-item {
-                display: block;
-                background: #fff;
-                border: 1px solid rgba(0, 0, 0, 0.03);
-                text-decoration: none !important;
-                cursor: pointer;
-
-                &--highlight {
-                    background: $color-blue-highlight;
-                    color: #eee;
-                }
-
-                &-avatar {
-                    width: 34px;
-                    height: 34px;
-                    padding: 6px 10px;
-                    vertical-align: top;
-                }
-
-                &-name {
-                    display: inline-block;
-                    line-height: $auto-complete-github_height;
-                    font-size: 12px;
-
-                    &-b {
-                        color: #111;
-
-                        &--highlight {
-                            color: #fff;
-                        }
-                    }
-                }
-            }
+        &--highlight {
+          background: $color-blue-highlight;
+          color: #eee;
         }
+
+        &-avatar {
+          width: 34px;
+          height: 34px;
+          padding: 6px 10px;
+          vertical-align: top;
+        }
+
+        &-name {
+          display: inline-block;
+          line-height: $auto-complete-github_height;
+          font-size: 12px;
+
+          &-b {
+            color: #111;
+
+            &--highlight {
+              color: #fff;
+            }
+          }
+        }
+      }
     }
+  }
 }

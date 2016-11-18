@@ -1,8 +1,8 @@
 .noselect{
-    @include prefix(user-select, none !important, webkit moz ms o);
+  @include prefix(user-select, none !important, webkit moz ms o);
 }
 
 .noclear::-ms-clear {
-    width: 0 !important;
-    height: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
 }

@@ -1,6 +1,6 @@
 @mixin base-text {
-    font-family: $base-font-family;
-    font-size: $base-font-size;
-    color: $color-text;
-    line-height: $base-line-height / $base-font-size;
+  font-family: $base-font-family;
+  font-size: $base-font-size;
+  color: $color-text;
+  line-height: $base-line-height / $base-font-size;
 }
