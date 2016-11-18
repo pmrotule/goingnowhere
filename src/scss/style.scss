@@ -1,20 +1,20 @@
-@import "settings/colors";
-@import "settings/global";
-@import "settings/auto-complete-github";
+@import "0.settings/colors";
+@import "0.settings/global";
+@import "0.settings/auto-complete-github";
 
-@import "tools/mixins";
-@import "tools/objects";
+@import "1.tools/mixins";
+@import "1.tools/objects";
 
-@import "generic/normalize";
-@import "generic/reset";
+@import "2.generic/normalize";
+@import "2.generic/reset";
 
-@import "elements/page";
-@import "elements/links";
-@import "elements/inputs";
+@import "3.elements/page";
+@import "3.elements/links";
+@import "3.elements/inputs";
 
-@import "objects/containers";
+@import "4.objects/containers";
 
-@import "components/auto-complete-github";
-@import "components/page-home";
+@import "5.components/auto-complete-github";
+@import "5.components/page-home";
 
-@import "trumps/prevent";
+@import "6.trumps/prevent";
