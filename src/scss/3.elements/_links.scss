@@ -2,8 +2,12 @@
   #LINKS
 \*------------------------------------*/
 
+/**
+ * Default styles for hyperlinks.
+ */
+
 a {
-  @include base-text;
+  color: $color-text;
   text-decoration: none;
   cursor: pointer;
 

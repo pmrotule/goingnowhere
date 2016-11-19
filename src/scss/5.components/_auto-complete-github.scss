@@ -2,6 +2,29 @@
   #AUTO-COMPLETE-GITHUB
 \*------------------------------------*/
 
+// Stylesheet of auto-complete-github:
+// Use the function auto_complete_github( inputElement ) to add style and
+// autocomplete functionality to an input. As the user types, github users will
+// show up in the autocomplete results.
+
+
+
+
+
+// Dimensions of the auto-complete input
+$auto-complete-github_height: 46px;
+
+// Dimensions and margin of the search-icon
+$auto-complete-github_search-icon-size: 22px;
+$auto-complete-github_search-icon-vmargin:
+  ($auto-complete-github_height - $auto-complete-github_search-icon-size) / 2;
+
+/**
+ * 1. Default search-icon size is 22px.
+ * 2. Default input size is 270px x 46px.
+ * 3. Default avatar size is 34px.
+ */
+
 .auto-complete-github {
   position: relative;
   background: #fff;
@@ -14,18 +37,18 @@
     vertical-align: top;
     margin: ($auto-complete-github_search-icon-vmargin + 1) 14px
             ($auto-complete-github_search-icon-vmargin - 1);
-    width: $auto-complete-github_search-icon-height;
-    height: $auto-complete-github_search-icon-height;
+    width:  $auto-complete-github_search-icon-size; /* [1] */
+    height: $auto-complete-github_search-icon-size; /* [1] */
     z-index: 2;
   }
 
   &__input {
     position: relative;
     vertical-align: top;
-    line-height: $auto-complete-github_height;
-    height: $auto-complete-github_height;
+    width:  270px; /* [2] */
+    height: $auto-complete-github_height; /* [2] */
+    line-height: $auto-complete-github_height; /* [2] */
     font-size: 18px;
-    width: 270px;
     z-index: 2;
   }
 
@@ -69,8 +92,8 @@
         }
 
         &-avatar {
-          width: 34px;
-          height: 34px;
+          width:  34px; /* [3] */
+          height: 34px; /* [3] */
           padding: 6px 10px;
           vertical-align: top;
         }

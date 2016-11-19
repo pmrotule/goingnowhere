@@ -1,6 +1,19 @@
-/*------------------------------------*\
-  #MIXINS
-\*------------------------------------*/
+///*------------------------------------*\
+//  #MIXINS
+//\*------------------------------------*/
+
+// Global mixins available to the entire project. Define file-specific
+// mixins inside the file to which they relate.
+
+
+
+
+
+// Mixin to add prefixes to a property such as -webkit -moz -o
+//
+// .simple-usage {
+//   @include prefix(box-shadow, 1px 1px 5px 0px #000, webkit moz);
+// }
 
 @mixin prefix($property, $value, $prefixes: ()) {
   @each $prefix in $prefixes {
@@ -8,4 +21,3 @@
   }
   #{$property}: $value;
 }
-// @include prefix(user-select, none, webkit moz ms o);

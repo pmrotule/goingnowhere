@@ -2,6 +2,10 @@
   #INPUTS
 \*------------------------------------*/
 
+/**
+ * Default styles for inputs' placeholder.
+ */
+
 input {
 
   &::-webkit-input-placeholder { color: $color-placeholder; }

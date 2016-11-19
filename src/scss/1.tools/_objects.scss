@@ -1,6 +1,9 @@
-/*------------------------------------*\
-  #OBJECTS-MIXINS
-\*------------------------------------*/
+///*------------------------------------*\
+//  #OBJECTS-MIXINS
+//\*------------------------------------*/
+
+// Global objects available to the entire project. Defined as mixin, it can be
+// included in any rulesets.
 
 @mixin base-text {
   font-family: $base-font-family;
