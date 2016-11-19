@@ -3,7 +3,17 @@
 var g_github_token = "f28435cfc0d491276c66b6509818317912adc143";
 var g_res_limit = 5;
 
-function auto_complete_github(input) {
+function auto_complete_github(inputs) {
+    // If "inputs" is a single inputElement and not a nodeList,
+    // put it inside an array.
+    var inputs_list = inputs.length ? inputs : [inputs];
+
+    for (var i = 0; i < inputs_list.length; i++) {
+        auto_complete_github.create(inputs_list[i]);
+    }
+}
+
+auto_complete_github.create = function (input) {
     // check if the autocomplete has already been created
     if (/(\s|^)auto-complete-github__input(\s|$)/.test(input.className)) {
         return false;
@@ -62,4 +72,4 @@ function auto_complete_github(input) {
     // between two mouse movements over the same item
     list.addEventListener('mousemove', auto_complete_github.list_onmousemove);
     list.addEventListener('click', auto_complete_github.list_onclick);
-}
+};
