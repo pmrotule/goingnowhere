@@ -35,11 +35,11 @@ function auto_complete_github(input) {
 
     // create the menu
     var menu = document.createElement('div');
-    menu.className = "auto-complete-github__menu";
+    menu.className = "auto-complete-github__list-wrapper";
 
     // create the results wrapper and append it to the menu
     var list = document.createElement('div');
-    var list_className = "auto-complete-github__menu-list";
+    var list_className = "auto-complete-github__list";
     list.className = list_className + " " + list_className + "--hidden";
     menu.appendChild(list);
 
@@ -58,8 +58,8 @@ function auto_complete_github(input) {
     input.addEventListener('focus', auto_complete_github.input_onfocus);
 
     // better using mousemove than mouseover:
-    // in case the user used the arrow keys to change the highlighted item between
-    // two mouse movements over the same item
+    // in case the user used the arrow keys to change the highlighted item
+    // between two mouse movements over the same item
     list.addEventListener('mousemove', auto_complete_github.list_onmousemove);
     list.addEventListener('click', auto_complete_github.list_onclick);
 }

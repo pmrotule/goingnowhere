@@ -14,7 +14,7 @@ auto_complete_github.http_request_success = function(response)
 
     // title goes on top of the results
     var title = document.createElement('div');
-    title.className = "auto-complete-github__menu-list-title";
+    title.className = "auto-complete-github__list-title";
     title.innerText = !nb ? "NO RESULTS" :
     "GITHUB USER" + (nb > 1 ? "S" : "");
 
@@ -22,7 +22,8 @@ auto_complete_github.http_request_success = function(response)
 
     for (var i = 0; i < nb; i++)
     {
-        var items = auto_complete_github.create_item_anchor(query, response.items[i]);
+        var items = auto_complete_github.
+        create_item_anchor(query, response.items[i]);
 
         if (i === 0) // highlight first result
         { auto_complete_github.highlight_item.call(input, items); }
@@ -42,21 +43,22 @@ auto_complete_github.http_request_error = function()
 auto_complete_github.create_item_anchor = function(query, github_data)
 {
     var item = document.createElement('a');
-    item.className = "auto-complete-github__menu-list-item";
+    item.className = "auto-complete-github__list-item";
     item.href = github_data.html_url;
     item.target = "_blank";
 
     var avatar = document.createElement('img');
-    avatar.className = "auto-complete-github__menu-list-item-avatar";
+    avatar.className = "auto-complete-github__list-avatar";
     avatar.src = github_data.avatar_url;
     avatar.draggable = false;
 
     var name = document.createElement('div');
-    var name_class = "auto-complete-github__menu-list-item-name";
+    var name_class = "auto-complete-github__list-username";
     name.className = name_class;
 
     name.innerHTML = github_data.login.replace(
-        new RegExp("(" + query + ")", "i"), '<b class="' + name_class + '-b">$1</b>'
+        new RegExp("(" + query + ")", "i"),
+        '<b class="' + name_class + '-b">$1</b>'
     );
 
     item.appendChild(avatar);
@@ -68,12 +70,17 @@ auto_complete_github.create_item_anchor = function(query, github_data)
 auto_complete_github.window_open_user_profile = function(e)
 {
     var input = this;
-    input.blur(); // prevent the menu to reappear when the focus is back on the tab
+
+    // prevent the menu to reappear when the focus is back on the tab
+    input.blur();
+
     auto_complete_github.hide_menu.call(input);
 
-    var item_highlighted = auto_complete_github.get_highlighted_item.call(input);
+    var item_highlighted =
+    auto_complete_github.get_highlighted_item.call(input);
 
-    window.open(item_highlighted.href, '_blank'); // open github user's profile in a new tab
+    // open github user's profile in a new tab
+    window.open(item_highlighted.href, '_blank');
 };
 
 auto_complete_github.arrow_navigate = function(e)
@@ -86,8 +93,9 @@ auto_complete_github.arrow_navigate = function(e)
         e.preventDefault();
 
         var items = input.auto_complete_github.list.
-        querySelectorAll('.auto-complete-github__menu-list-item');
-        var item_highlighted = auto_complete_github.get_highlighted_item.call(input);
+        querySelectorAll('.auto-complete-github__list-item');
+        var item_highlighted =
+        auto_complete_github.get_highlighted_item.call(input);
 
         if (item_highlighted === null)
         {
@@ -116,12 +124,14 @@ auto_complete_github.arrow_navigate = function(e)
 
 auto_complete_github.element_is_item = function(element)
 {
-    return /(\s|^)auto-complete-github__menu-list-item(\s|$)/.test(element.className);
+    return /(\s|^)auto-complete-github__list-item(\s|$)/.
+    test(element.className);
 };
 
 auto_complete_github.element_is_menu = function(element)
 {
-    return /(\s|^)auto-complete-github__menu(\s|$)/.test(element.className);
+    return /(\s|^)auto-complete-github__list-wrapper(\s|$)/.
+    test(element.className);
 };
 
 auto_complete_github.closest_anchor = function(element)
@@ -139,7 +149,7 @@ auto_complete_github.get_highlighted_item = function()
     var input = this;
 
     return input.auto_complete_github.list.
-    querySelector('.auto-complete-github__menu-list-item--highlight');
+    querySelector('.auto-complete-github__list-item--highlight');
 };
 
 auto_complete_github.highlight_item = function(anchor)
@@ -148,35 +158,38 @@ auto_complete_github.highlight_item = function(anchor)
     { return false; }
 
     var input = this;
-    var item_highlighted = auto_complete_github.get_highlighted_item.call(input);
-    var item_class = "auto-complete-github__menu-list-item";
+    var item_highlighted =
+    auto_complete_github.get_highlighted_item.call(input);
+    var prefix_class = "auto-complete-github__list";
+    var item_class = prefix_class + "-item";
+    var username_b_class = prefix_class + "-username-b";
 
     if (item_highlighted !== null)
     {
         item_highlighted.className = item_class;
         var bold_highlighted =
-        item_highlighted.querySelectorAll("." + item_class + "-name-b");
+        item_highlighted.querySelectorAll("." + username_b_class);
 
         for (var i = 0; i < bold_highlighted.length; i++)
-        { bold_highlighted[i].className = item_class + "-name-b"; }
+        { bold_highlighted[i].className = username_b_class; }
     }
 
     anchor.className = item_class + " " + item_class + "--highlight";
 
     var bold_elements =
-    anchor.querySelectorAll("." + item_class + "-name-b");
+    anchor.querySelectorAll("." + username_b_class);
 
     for (var i = 0; i < bold_elements.length; i++)
     {
         bold_elements[i].className =
-        item_class + "-name-b " + item_class + "-name-b--highlight";
+        username_b_class + " " + username_b_class + "--highlight";
     }
 };
 
 auto_complete_github.show_menu = function()
 {
     var input = this;
-    var base_class = "auto-complete-github__menu-list";
+    var base_class = "auto-complete-github__list";
 
     input.auto_complete_github.list.className =
     base_class + " " + base_class + "--visible";
@@ -185,7 +198,7 @@ auto_complete_github.show_menu = function()
 auto_complete_github.hide_menu = function()
 {
     var input = this;
-    var base_class = "auto-complete-github__menu-list";
+    var base_class = "auto-complete-github__list";
 
     input.auto_complete_github.list.className =
     base_class + " " + base_class + "--hidden";

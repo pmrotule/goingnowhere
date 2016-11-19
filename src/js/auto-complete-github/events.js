@@ -25,7 +25,8 @@ auto_complete_github.input_onkeyup = function()
 
             if (xhr.status == 200) // Success
             {
-                auto_complete_github.http_request_success.call(input, xhr.responseText);
+                auto_complete_github.
+                http_request_success.call(input, xhr.responseText);
                 acGIN.old_value = query;
             }
         }

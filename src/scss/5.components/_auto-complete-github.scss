@@ -52,65 +52,65 @@ $auto-complete-github_search-icon-vmargin:
     z-index: 2;
   }
 
-  &__menu {
+  &__list-wrapper {
     position: absolute;
     width: 100%;
     top: 0;
     padding-top: $auto-complete-github_height;
     z-index: 1;
     @include prefix(box-shadow, $base-box-shadow, webkit moz);
+  }
 
-    &-list {
+  &__list {
 
-      &--visible {
-        display: block;
+    &--visible {
+      display: block;
+    }
+
+    &--hidden {
+      display: none;
+    }
+
+    &-title {
+      background: #f6f6f6;
+      font-size: 12px;
+      font-weight: bold;
+      color: #777;
+      padding: 11px 10px 10px;
+      border: 0;
+    }
+
+    &-item {
+      display: block;
+      background: #fff;
+      border: 1px solid rgba(0, 0, 0, 0.03);
+      text-decoration: none !important;
+      cursor: pointer;
+
+      &--highlight {
+        background: $color-blue-highlight;
+        color: #eee;
       }
+    }
 
-      &--hidden {
-        display: none;
-      }
+    &-avatar {
+      width:  34px; /* [3] */
+      height: 34px; /* [3] */
+      padding: 6px 10px;
+      vertical-align: top;
+    }
 
-      &-title {
-        background: #f6f6f6;
-        font-size: 12px;
-        font-weight: bold;
-        color: #777;
-        padding: 11px 10px 10px;
-        border: 0;
-      }
+    &-username {
+      display: inline-block;
+      line-height: $auto-complete-github_height;
+      font-size: 12px;
+    }
 
-      &-item {
-        display: block;
-        background: #fff;
-        border: 1px solid rgba(0, 0, 0, 0.03);
-        text-decoration: none !important;
-        cursor: pointer;
+    &-bold {
+      color: #111;
 
-        &--highlight {
-          background: $color-blue-highlight;
-          color: #eee;
-        }
-
-        &-avatar {
-          width:  34px; /* [3] */
-          height: 34px; /* [3] */
-          padding: 6px 10px;
-          vertical-align: top;
-        }
-
-        &-name {
-          display: inline-block;
-          line-height: $auto-complete-github_height;
-          font-size: 12px;
-
-          &-b {
-            color: #111;
-
-            &--highlight {
-              color: #fff;
-            }
-          }
-        }
+      &--highlight {
+        color: #fff;
       }
     }
   }

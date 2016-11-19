@@ -30,16 +30,6 @@
  * TRUMPS
  * Prevent.................Helpers to prevent default functionalities.
  */
-/*------------------------------------*  #COLORS
-\*------------------------------------*/
-/*------------------------------------*  #GLOBAL
-\*------------------------------------*/
-/*------------------------------------*  #AUTO-COMPLETE-GITHUB-SETTINGS
-\*------------------------------------*/
-/*------------------------------------*  #MIXINS
-\*------------------------------------*/
-/*------------------------------------*  #OBJECTS-MIXINS
-\*------------------------------------*/
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 /**
  * 1. Set default font family to sans-serif.
@@ -400,12 +390,18 @@ th {
 
 /*------------------------------------*  #RESET
 \*------------------------------------*/
+/**
+ * A very simple reset that sits on top of Normalize.css.
+ */
 * {
   margin: 0;
   padding: 0;
   border: 0;
   vertical-align: baseline; }
 
+/**
+ * No outline on focus of form elements
+ */
 input:focus,
 select:focus,
 textarea:focus,
@@ -414,6 +410,9 @@ button:focus {
 
 /*------------------------------------*  #PAGE
 \*------------------------------------*/
+/**
+ * Page-level styles (HTML element).
+ */
 html {
   font-family: Helvetica, sans-serif, Arial;
   font-size: 16px;
@@ -424,11 +423,11 @@ html {
 
 /*------------------------------------*  #LINKS
 \*------------------------------------*/
+/**
+ * Default styles for hyperlinks.
+ */
 a {
-  font-family: Helvetica, sans-serif, Arial;
-  font-size: 16px;
   color: #444;
-  line-height: 1.5;
   text-decoration: none;
   cursor: pointer; }
   a:hover {
@@ -436,6 +435,9 @@ a {
 
 /*------------------------------------*  #INPUTS
 \*------------------------------------*/
+/**
+ * Default styles for inputs' placeholder.
+ */
 input::-webkit-input-placeholder {
   color: #bbb; }
 
@@ -467,6 +469,11 @@ input:-ms-input-placeholder {
 
 /*------------------------------------*  #AUTO-COMPLETE-GITHUB
 \*------------------------------------*/
+/**
+ * 1. Default search-icon size is 22px.
+ * 2. Default input size is 270px x 46px.
+ * 3. Default avatar size is 34px.
+ */
 .auto-complete-github {
   position: relative;
   background: #fff;
@@ -478,17 +485,22 @@ input:-ms-input-placeholder {
     vertical-align: top;
     margin: 13px 14px 11px;
     width: 22px;
+    /* [1] */
     height: 22px;
+    /* [1] */
     z-index: 2; }
   .auto-complete-github__input {
     position: relative;
     vertical-align: top;
-    line-height: 46px;
-    height: 46px;
-    font-size: 18px;
     width: 270px;
+    /* [2] */
+    height: 46px;
+    /* [2] */
+    line-height: 46px;
+    /* [2] */
+    font-size: 18px;
     z-index: 2; }
-  .auto-complete-github__menu {
+  .auto-complete-github__list-wrapper {
     position: absolute;
     width: 100%;
     top: 0;
@@ -497,39 +509,41 @@ input:-ms-input-placeholder {
     -webkit-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.15);
     -moz-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.15);
     box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.15); }
-    .auto-complete-github__menu-list--visible {
-      display: block; }
-    .auto-complete-github__menu-list--hidden {
-      display: none; }
-    .auto-complete-github__menu-list-title {
-      background: #f6f6f6;
-      font-size: 12px;
-      font-weight: bold;
-      color: #777;
-      padding: 11px 10px 10px;
-      border: 0; }
-    .auto-complete-github__menu-list-item {
-      display: block;
-      background: #fff;
-      border: 1px solid rgba(0, 0, 0, 0.03);
-      text-decoration: none !important;
-      cursor: pointer; }
-      .auto-complete-github__menu-list-item--highlight {
-        background: #5b72a7;
-        color: #eee; }
-      .auto-complete-github__menu-list-item-avatar {
-        width: 34px;
-        height: 34px;
-        padding: 6px 10px;
-        vertical-align: top; }
-      .auto-complete-github__menu-list-item-name {
-        display: inline-block;
-        line-height: 46px;
-        font-size: 12px; }
-        .auto-complete-github__menu-list-item-name-b {
-          color: #111; }
-          .auto-complete-github__menu-list-item-name-b--highlight {
-            color: #fff; }
+  .auto-complete-github__list--visible {
+    display: block; }
+  .auto-complete-github__list--hidden {
+    display: none; }
+  .auto-complete-github__list-title {
+    background: #f6f6f6;
+    font-size: 12px;
+    font-weight: bold;
+    color: #777;
+    padding: 11px 10px 10px;
+    border: 0; }
+  .auto-complete-github__list-item {
+    display: block;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    text-decoration: none !important;
+    cursor: pointer; }
+    .auto-complete-github__list-item--highlight {
+      background: #5b72a7;
+      color: #eee; }
+  .auto-complete-github__list-avatar {
+    width: 34px;
+    /* [3] */
+    height: 34px;
+    /* [3] */
+    padding: 6px 10px;
+    vertical-align: top; }
+  .auto-complete-github__list-username {
+    display: inline-block;
+    line-height: 46px;
+    font-size: 12px; }
+  .auto-complete-github__list-bold {
+    color: #111; }
+    .auto-complete-github__list-bold--highlight {
+      color: #fff; }
 
 /*------------------------------------*  #PAGE-HOME
 \*------------------------------------*/
