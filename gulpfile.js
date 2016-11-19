@@ -11,12 +11,12 @@ gulp.task('es6', () => {
 });
 
 gulp.task('sass', () => {
-    return gulp.src('src/scss/style.scss')
+    return gulp.src('src/scss/main.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('public/css'));
 });
 
 gulp.task('default', ['es6', 'sass'], () => {
     gulp.watch('src/js/**/*.js', ['es6']);
-    gulp.watch('src/scss/style.scss', ['sass']);
+    gulp.watch('src/scss/main.scss', ['sass']);
 });
