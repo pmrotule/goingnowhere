@@ -4,11 +4,11 @@
 
 // Helpers to prevent default functionalities.
 
-.noselect{
+.u-noselect{
   @include prefix(user-select, none !important, webkit moz ms o);
 }
 
-.noclear::-ms-clear {
+.u-noclear::-ms-clear {
   width: 0 !important;
   height: 0 !important;
 }

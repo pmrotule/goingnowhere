@@ -72,11 +72,16 @@
 
 
 
-@import "5.components/auto-complete-github";
-@import "5.components/page-home";
+@import "5.templates/demo-github-user-search";
 
 
 
 
 
-@import "6.trumps/prevent";
+@import "6.components/auto-complete-github";
+
+
+
+
+
+@import "7.trumps/prevent";

@@ -467,6 +467,11 @@ input:-ms-input-placeholder {
   width: 350px;
   text-align: center; }
 
+/*------------------------------------*  #DEMO-GITHUB-USER-SEARCH
+\*------------------------------------*/
+.t-demo-github-user-search {
+  padding: 4vw 16px 0; }
+
 /*------------------------------------*  #AUTO-COMPLETE-GITHUB
 \*------------------------------------*/
 /**
@@ -545,20 +550,15 @@ input:-ms-input-placeholder {
     .auto-complete-github__list-bold--highlight {
       color: #fff; }
 
-/*------------------------------------*  #PAGE-HOME
-\*------------------------------------*/
-.auto-complete-parent {
-  padding: 4vw 16px 0; }
-
 /*------------------------------------*  #PREVENT
 \*------------------------------------*/
-.noselect {
+.u-noselect {
   -webkit-user-select: none !important;
   -moz-user-select: none !important;
   -ms-user-select: none !important;
   -o-user-select: none !important;
   user-select: none !important; }
 
-.noclear::-ms-clear {
+.u-noclear::-ms-clear {
   width: 0 !important;
   height: 0 !important; }
