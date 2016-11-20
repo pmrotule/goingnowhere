@@ -1,0 +1,71 @@
+/*------------------------------------*\
+  #INPUT-SEARCH
+\*------------------------------------*/
+
+// Stylesheet of input-search:
+// Use the js function create_input_search_from( inputElement ) to create the
+// wrapper, icon and menu element. The menu is ready to accept items but it is
+// not mandatory. No event listeners are added except an onclick function
+// attached to the icon to put the focus back on the input.
+
+
+
+
+
+// Dimensions of the input
+$input-search_height: 46px;
+
+// Dimensions and margin of the icon
+$input-search_icon-size: 22px;
+$input-search_icon-vmargin:
+  ($input-search_height - $input-search_icon-size) / 2;
+
+// Box-shadow value of the menu
+$input-search_box-shadow: $base-box-shadow;
+
+/**
+ * 1. Default input size is 270px x 46px.
+ * 2. Default icon size is 22px.
+ * 3. The padding-top value of the menu is equal to the height of the input
+      since it has the box-shadow property.
+ */
+
+.c-input-search {
+  position: relative;
+  background: #fff;
+  min-width: 320px;
+  width: 320px;
+  cursor: default;
+}
+
+.input-search {
+
+  &__input {
+    position: relative;
+    vertical-align: top;
+    width:  270px; /* [1] */
+    height: $input-search_height; /* [1] */
+    line-height: $input-search_height; /* [1] */
+    font-size: 18px;
+    z-index: 2;
+  }
+
+  &__icon {
+    position: relative;
+    vertical-align: top;
+    margin: ($input-search_icon-vmargin + 1) 14px
+            ($input-search_icon-vmargin - 1);
+    width:  $input-search_icon-size; /* [2] */
+    height: $input-search_icon-size; /* [2] */
+    z-index: 2;
+  }
+
+  &__menu {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    padding-top: $auto-complete_input-height; /* [3] */
+    z-index: 1;
+    @include prefix(box-shadow, $input-search_box-shadow, webkit moz);
+  }
+}

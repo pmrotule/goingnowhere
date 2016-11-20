@@ -472,83 +472,84 @@ input:-ms-input-placeholder {
 .t-demo-github-user-search {
   padding: 4vw 16px 0; }
 
-/*------------------------------------*  #AUTO-COMPLETE-GITHUB
+/*------------------------------------*  #INPUT-SEARCH
 \*------------------------------------*/
 /**
- * 1. Default search-icon size is 22px.
- * 2. Default input size is 270px x 46px.
- * 3. Default avatar size is 34px.
+ * 1. Default input size is 270px x 46px.
+ * 2. Default icon size is 22px.
  */
-.auto-complete-github {
+.c-input-search {
+  position: relative;
+  vertical-align: top;
+  width: 270px;
+  /* [1] */
+  height: 46px;
+  /* [1] */
+  line-height: 46px;
+  /* [1] */
+  font-size: 18px;
+  z-index: 2; }
+
+.input-search-wrapper {
   position: relative;
   background: #fff;
   min-width: 320px;
   width: 320px;
   cursor: default; }
-  .auto-complete-github__search-icon {
-    position: relative;
-    vertical-align: top;
-    margin: 13px 14px 11px;
-    width: 22px;
-    /* [1] */
-    height: 22px;
-    /* [1] */
-    z-index: 2; }
-  .auto-complete-github__input {
-    position: relative;
-    vertical-align: top;
-    width: 270px;
-    /* [2] */
-    height: 46px;
-    /* [2] */
-    line-height: 46px;
-    /* [2] */
-    font-size: 18px;
-    z-index: 2; }
-  .auto-complete-github__list-wrapper {
-    position: absolute;
-    width: 100%;
-    top: 0;
-    padding-top: 46px;
-    z-index: 1;
-    -webkit-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.15);
-    -moz-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.15);
-    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.15); }
-  .auto-complete-github__list--visible {
-    display: block; }
-  .auto-complete-github__list--hidden {
-    display: none; }
-  .auto-complete-github__list-title {
-    background: #f6f6f6;
-    font-size: 12px;
-    font-weight: bold;
-    color: #777;
-    padding: 11px 10px 10px;
-    border: 0; }
-  .auto-complete-github__list-item {
-    display: block;
-    background: #fff;
-    border: 1px solid rgba(0, 0, 0, 0.03);
-    text-decoration: none !important;
-    cursor: pointer; }
-    .auto-complete-github__list-item--highlight {
-      background: #5b72a7;
-      color: #eee; }
-  .auto-complete-github__list-avatar {
-    width: 34px;
-    /* [3] */
-    height: 34px;
-    /* [3] */
-    padding: 6px 10px;
-    vertical-align: top; }
-  .auto-complete-github__list-username {
-    display: inline-block;
-    line-height: 46px;
-    font-size: 12px; }
-  .auto-complete-github__list-bold {
-    color: #111; }
-    .auto-complete-github__list-bold--highlight {
-      color: #fff; }
+
+.input-search-icon {
+  position: relative;
+  vertical-align: top;
+  margin: 13px 14px 11px;
+  width: 22px;
+  /* [2] */
+  height: 22px;
+  /* [2] */
+  z-index: 2; }
+
+/*------------------------------------*  #AUTO-COMPLETE-AJAX
+\*------------------------------------*/
+/**
+ * 1. Default avatar size is 34px.
+ */
+.c-auto-complete-ajax {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  padding-top: 46px;
+  z-index: 1;
+  -webkit-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.15); }
+
+.auto-complete-ajax__list--visible {
+  display: block; }
+
+.auto-complete-ajax__list--hidden {
+  display: none; }
+
+.auto-complete-ajax__list-title {
+  background: #f6f6f6;
+  font-size: 12px;
+  font-weight: bold;
+  color: #777;
+  padding: 11px 10px 10px;
+  border: 0; }
+
+.auto-complete-ajax__list-item {
+  display: block;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  text-decoration: none !important;
+  cursor: pointer; }
+  .auto-complete-ajax__list-item--highlight {
+    background: #5b72a7;
+    color: #eee; }
+
+.auto-complete-ajax__list-bold {
+  color: #111; }
+  .auto-complete-ajax__list-bold--highlight {
+    color: #fff; }
 
 /*------------------------------------*  #PREVENT
 \*------------------------------------*/

@@ -1,7 +1,6 @@
 window.addEventListener('load', function()
 {
-    var auto_complete = document.querySelectorAll('.js-auto-complete-github');
+    var input_search = document.querySelector('.js-github-user-search');
 
-    for (var i = 0; i < auto_complete.length; i++)
-    { new auto_complete_github(auto_complete[i]); }
+    create_input_search_from(input_search);
 });
