@@ -87,8 +87,8 @@ auto_complete_github.prototype.arrow_navigate = function(e)
     {
         e.preventDefault();
 
-        var items = this.list.
-        querySelectorAll('.auto-complete-github__list-item');
+        var items = this.list
+            .querySelectorAll('.auto-complete-github__list-item');
         var item_highlighted = this.get_highlighted_item();
 
         if (item_highlighted === null)
@@ -118,14 +118,14 @@ auto_complete_github.prototype.arrow_navigate = function(e)
 
 auto_complete_github.prototype.element_is_item = function(element)
 {
-    return /(\s|^)auto-complete-github__list-item(\s|$)/.
-    test(element.className);
+    return /(\s|^)auto-complete-github__list-item(\s|$)/
+        .test(element.className);
 };
 
 auto_complete_github.prototype.element_is_menu = function(element)
 {
-    return /(\s|^)auto-complete-github__list-wrapper(\s|$)/.
-    test(element.className);
+    return /(\s|^)auto-complete-github__list-wrapper(\s|$)/
+        .test(element.className);
 };
 
 auto_complete_github.prototype.closest_anchor = function(element)
@@ -139,8 +139,8 @@ auto_complete_github.prototype.closest_anchor = function(element)
 
 auto_complete_github.prototype.get_highlighted_item = function()
 {
-    return this.list.
-    querySelector('.auto-complete-github__list-item--highlight');
+    return this.list
+        .querySelector('.auto-complete-github__list-item--highlight');
 };
 
 auto_complete_github.prototype.highlight_item = function(anchor)
