@@ -1,4 +1,7 @@
 window.addEventListener('load', function()
 {
-    auto_complete_github(document.querySelectorAll('.js-auto-complete-github'));
+    var auto_complete = document.querySelectorAll('.js-auto-complete-github');
+
+    for (var i = 0; i < auto_complete.length; i++)
+    { new auto_complete_github(auto_complete[i]); }
 });

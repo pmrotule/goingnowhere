@@ -3,17 +3,7 @@
 var g_github_token = "f28435cfc0d491276c66b6509818317912adc143";
 var g_res_limit = 5;
 
-function auto_complete_github(inputs) {
-    // If "inputs" is a single inputElement and not a nodeList,
-    // put it inside an array.
-    var inputs_list = inputs.length ? inputs : [inputs];
-
-    for (var i = 0; i < inputs_list.length; i++) {
-        auto_complete_github.create(inputs_list[i]);
-    }
-}
-
-auto_complete_github.create = function (input) {
+function auto_complete_github(input) {
     // check if the autocomplete has already been created
     if (/(\s|^)auto-complete-github__input(\s|$)/.test(input.className)) {
         return false;
@@ -56,20 +46,20 @@ auto_complete_github.create = function (input) {
     // append the menu to the wrapper
     wrapper.appendChild(menu);
 
-    // create an object with relevant data and attach it to the input
-    input.auto_complete_github = {
-        list: list,
-        xhr: null,
-        old_value: ""
-    };
+    // attach relevant data to the instance
+    this.input = input;
+    this.list = list;
+    this.xhr = null;
+    this.old_value = "";
 
-    input.addEventListener('keyup', auto_complete_github.input_onkeyup);
-    input.addEventListener('keydown', auto_complete_github.input_onkeydown);
-    input.addEventListener('focus', auto_complete_github.input_onfocus);
+    // .bind(this) to use "this" keyword as the instance instead of the input
+    input.addEventListener('keyup', this.input_onkeyup.bind(this));
+    input.addEventListener('keydown', this.input_onkeydown.bind(this));
+    input.addEventListener('focus', this.input_onfocus.bind(this));
 
     // better using mousemove than mouseover:
     // in case the user used the arrow keys to change the highlighted item
     // between two mouse movements over the same item
-    list.addEventListener('mousemove', auto_complete_github.list_onmousemove);
-    list.addEventListener('click', auto_complete_github.list_onclick);
+    list.addEventListener('mousemove', this.list_onmousemove.bind(this));
+    list.addEventListener('click', this.list_onclick.bind(this));
 };

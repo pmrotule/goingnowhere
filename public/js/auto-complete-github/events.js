@@ -1,68 +1,65 @@
 "use strict";
 
-auto_complete_github.input_onkeyup = function () {
-    var input = this;
-    var acGIN = input.auto_complete_github;
+auto_complete_github.prototype.input_onkeyup = function () {
+    var inst = this;
+    var input = inst.input;
     var query = input.value.trim();
     var empty = query === "";
 
     if (empty) {
-        auto_complete_github.hide_menu.call(input);
+        inst.hide_menu();
     }
 
-    if (acGIN.xhr) {
-        acGIN.xhr.abort();
+    if (inst.xhr) {
+        inst.xhr.abort();
     }
 
-    if (empty || acGIN.old_value === query) {
+    if (empty || inst.old_value === query) {
         return false;
     }
 
     var xhr = new XMLHttpRequest();
-    acGIN.xhr = xhr;
+    inst.xhr = xhr;
 
     xhr.onreadystatechange = function () {
         if (xhr.readyState == XMLHttpRequest.DONE) {
-            acGIN.xhr = null;
+            inst.xhr = null;
 
             if (xhr.status == 200) // Success
                 {
-                    auto_complete_github.http_request_success.call(input, xhr.responseText);
-                    acGIN.old_value = query;
+                    inst.http_request_success(xhr.responseText);
+                    inst.old_value = query;
                 }
         }
     };
 
-    xhr.error = auto_complete_github.http_request_error;
+    xhr.error = inst.http_request_error;
 
     xhr.open("GET", "https://api.github.com/search/users?q=" + query + "&access_token=" + g_github_token, true);
 
     xhr.send();
 };
 
-auto_complete_github.input_onkeydown = function (e) {
+auto_complete_github.prototype.input_onkeydown = function (e) {
     if ((e.which || e.keyCode) == 13) // enter
         {
             e.preventDefault();
-            auto_complete_github.window_open_user_profile.call(this, e);
+            this.window_open_user_profile(e);
         } else {
-        auto_complete_github.arrow_navigate.call(this, e);
+        this.arrow_navigate(e);
     }
 };
 
-auto_complete_github.input_onfocus = function () {
-    if (this.value.trim() !== "") {
-        auto_complete_github.show_menu.call(this);
+auto_complete_github.prototype.input_onfocus = function () {
+    if (this.input.value.trim() !== "") {
+        this.show_menu();
     }
 };
 
-auto_complete_github.list_onmousemove = function (e) {
-    var input = this.parentNode.parentNode.querySelector('input');
-
-    auto_complete_github.highlight_item.call(input, auto_complete_github.closest_anchor(e.target));
+auto_complete_github.prototype.list_onmousemove = function (e) {
+    this.highlight_item(this.closest_anchor(e.target));
 };
 
-auto_complete_github.list_onclick = function () {
-    var input = this.parentNode.parentNode.querySelector('input');
-    auto_complete_github.hide_menu.call(input);
+auto_complete_github.prototype.list_onclick = function () {
+    this.hide_menu();
 };
