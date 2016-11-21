@@ -15,6 +15,7 @@
 $auto-complete-ajax_color-highlight: $color-blue-highlight;
 
 .c-auto-complete-ajax {
+  min-width: 250px;
 
   &--visible {
     display: block;
@@ -22,6 +23,10 @@ $auto-complete-ajax_color-highlight: $color-blue-highlight;
 
   &--hidden {
     display: none;
+  }
+
+  &--absolute {
+    position: absolute;
   }
 }
 

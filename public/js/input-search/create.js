@@ -41,7 +41,15 @@ function create_input_search_from(input) {
 
     // reverse the default z-index order of occurrence to prevent a menu from
     // being covered by another input-search
-    wrapper.style.zIndex = 400 - g_auto_complete_ajax_count;
+    wrapper.style.zIndex = 400 - g_input_search_count;
 
     g_input_search_count++;
+
+    // return the elements inside an object
+    return {
+        wrapper: wrapper,
+        icon: icon,
+        input: input,
+        menu: menu
+    };
 };

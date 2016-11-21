@@ -540,11 +540,14 @@ input:-ms-input-placeholder {
 
 /*------------------------------------*  #AUTO-COMPLETE-AJAX
 \*------------------------------------*/
-.c-auto-complete-ajax--visible {
-  display: block; }
-
-.c-auto-complete-ajax--hidden {
-  display: none; }
+.c-auto-complete-ajax {
+  min-width: 250px; }
+  .c-auto-complete-ajax--visible {
+    display: block; }
+  .c-auto-complete-ajax--hidden {
+    display: none; }
+  .c-auto-complete-ajax--absolute {
+    position: absolute; }
 
 .auto-complete-ajax__title {
   background: #f6f6f6;
