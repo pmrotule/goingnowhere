@@ -1,8 +1,8 @@
 "use strict";
 
-auto_complete_github.prototype.input_onkeyup = function () {
+auto_complete_ajax.prototype.input_onkeyup = function () {
     var inst = this;
-    var input = inst.input;
+    var input = inst.params.input;
     var query = input.value.trim();
     var empty = query === "";
 
@@ -25,41 +25,43 @@ auto_complete_github.prototype.input_onkeyup = function () {
         if (xhr.readyState == XMLHttpRequest.DONE) {
             inst.xhr = null;
 
-            if (xhr.status == 200) // Success
-                {
-                    inst.http_request_success(xhr.responseText);
-                    inst.old_value = query;
-                }
+            if (xhr.status == 200 && xhr.responseText && xhr.responseText !== "") {
+                inst.params.ajax.success(xhr.responseText);
+                inst.old_value = query;
+            } else {
+                inst.params.ajax.error();
+            }
         }
     };
 
-    xhr.error = inst.http_request_error;
+    xhr.error = inst.params.ajax.error;
 
-    xhr.open("GET", "https://api.github.com/search/users?q=" + query + "&access_token=" + g_github_token, true);
-
+    xhr.open("GET", inst.params.ajax.url, true);
     xhr.send();
 };
 
-auto_complete_github.prototype.input_onkeydown = function (e) {
+auto_complete_ajax.prototype.input_onkeydown = function (e) {
     if ((e.which || e.keyCode) == 13) // enter
         {
             e.preventDefault();
-            this.window_open_user_profile(e);
+            this.params.onselect(this.get_highlighted_item(), "enter");
+
+            this.hide_menu();
         } else {
         this.arrow_navigate(e);
     }
 };
 
-auto_complete_github.prototype.input_onfocus = function () {
-    if (this.input.value.trim() !== "") {
+auto_complete_ajax.prototype.input_onfocus = function () {
+    if (this.params.input.value.trim() !== "") {
         this.show_menu();
     }
 };
 
-auto_complete_github.prototype.list_onmousemove = function (e) {
+auto_complete_ajax.prototype.container_onmousemove = function (e) {
     this.highlight_item(this.closest_anchor(e.target));
 };
 
-auto_complete_github.prototype.list_onclick = function () {
+auto_complete_ajax.prototype.container_onclick = function () {
     this.hide_menu();
 };

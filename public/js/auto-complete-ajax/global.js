@@ -1,79 +1,46 @@
 "use strict";
 
-auto_complete_github.prototype.http_request_success = function (response) {
-    var input = this.input;
-    var query = input.value.trim();
-    response = JSON.parse(response);
+auto_complete_ajax.prototype.ajax_success = function (response) {
+    var p = this.params;
+    var items = p.create_items(response);
+    var count = items.length < p.items_limit ? items.length : p.items_limit;
 
-    this.list.innerHTML = "";
+    p.wrapper.innerHTML = "";
 
-    if (!response.items) {
-        return false;
+    if (p.menu_title) {
+        // title goes on top of the results
+        var title = document.createElement('div');
+        title.className = "auto-complete-ajax__title";
+
+        switch (count) {
+            case 0:
+                title.innerText = p.menu_title.no_results;
+                break;
+            case 1:
+                title.innerText = p.menu_title.singular;
+                break;
+            default:
+                title.innerText = p.menu_title.plural;
+        }
+        p.wrapper.appendChild(title);
     }
 
-    var nb = response.items.length < g_res_limit ? response.items.length : g_res_limit;
-
-    // title goes on top of the results
-    var title = document.createElement('div');
-    title.className = "auto-complete-github__list-title";
-    title.innerText = !nb ? "NO RESULTS" : "GITHUB USER" + (nb > 1 ? "S" : "");
-
-    this.list.appendChild(title);
-
-    for (var i = 0; i < nb; i++) {
-        var items = this.create_item_anchor(query, response.items[i]);
+    for (var i = 0; i < count; i++) {
+        add_class(items[i], "auto-complete-ajax__item");
 
         if (i === 0) // highlight first result
             {
-                this.highlight_item(items);
+                this.highlight_item(items[i]);
             }
 
-        this.list.appendChild(items);
+        p.wrapper.appendChild(items[i]);
     }
 
     this.show_menu();
-    this.old_value = query;
+    this.old_value = p.input.value.trim();
 };
 
-auto_complete_github.prototype.http_request_error = function () {
-    alert('An error occured while getting the users from Github.');
-};
-
-auto_complete_github.prototype.create_item_anchor = function (query, github_data) {
-    var item = document.createElement('a');
-    item.className = "auto-complete-github__list-item";
-    item.href = github_data.html_url;
-    item.target = "_blank";
-
-    var avatar = document.createElement('img');
-    avatar.className = "auto-complete-github__list-avatar";
-    avatar.src = github_data.avatar_url;
-    avatar.draggable = false;
-
-    var name = document.createElement('div');
-    var name_class = "auto-complete-github__list-username";
-    name.className = name_class;
-
-    name.innerHTML = github_data.login.replace(new RegExp("(" + query + ")", "i"), '<b class="' + name_class + '-b">$1</b>');
-
-    item.appendChild(avatar);
-    item.appendChild(name);
-
-    return item;
-};
-
-auto_complete_github.prototype.window_open_user_profile = function (e) {
-    var input = this.input;
-
-    // prevent the menu to reappear when the focus is back on the tab
-    input.blur();
-    this.hide_menu();
-
-    // open github user's profile in a new tab
-    window.open(this.get_highlighted_item().href, '_blank');
-};
-
-auto_complete_github.prototype.arrow_navigate = function (e) {
+auto_complete_ajax.prototype.arrow_navigate = function (e) {
     var input = this.input;
     var key = e.which || e.keyCode;
 
@@ -81,7 +48,7 @@ auto_complete_github.prototype.arrow_navigate = function (e) {
         {
             e.preventDefault();
 
-            var items = this.list.querySelectorAll('.auto-complete-github__list-item');
+            var items = this.list.querySelectorAll('.auto-complete-ajax__list-item');
             var item_highlighted = this.get_highlighted_item();
 
             if (item_highlighted === null) {

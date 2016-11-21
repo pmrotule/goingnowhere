@@ -477,8 +477,17 @@ input:-ms-input-placeholder {
 /**
  * 1. Default input size is 270px x 46px.
  * 2. Default icon size is 22px.
+ * 3. The padding-top value of the menu is equal to the height of the input
+      since it has the box-shadow property.
  */
 .c-input-search {
+  position: relative;
+  background: #fff;
+  min-width: 320px;
+  width: 320px;
+  cursor: default; }
+
+.input-search__input {
   position: relative;
   vertical-align: top;
   width: 270px;
@@ -490,14 +499,7 @@ input:-ms-input-placeholder {
   font-size: 18px;
   z-index: 2; }
 
-.input-search-wrapper {
-  position: relative;
-  background: #fff;
-  min-width: 320px;
-  width: 320px;
-  cursor: default; }
-
-.input-search-icon {
+.input-search__icon {
   position: relative;
   vertical-align: top;
   margin: 13px 14px 11px;
@@ -507,28 +509,44 @@ input:-ms-input-placeholder {
   /* [2] */
   z-index: 2; }
 
-/*------------------------------------*  #AUTO-COMPLETE-AJAX
-\*------------------------------------*/
-/**
- * 1. Default avatar size is 34px.
- */
-.c-auto-complete-ajax {
+.input-search__menu {
   position: absolute;
   width: 100%;
   top: 0;
   padding-top: 46px;
+  /* [3] */
   z-index: 1;
   -webkit-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.15);
   box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.15); }
 
-.auto-complete-ajax__list--visible {
+/*------------------------------------*  #GITHUB-USER-RESULT
+\*------------------------------------*/
+/**
+ * 1. Default avatar size is 34px.
+ */
+.github-user-result-avatar {
+  width: 34px;
+  /* [1] */
+  height: 34px;
+  /* [1] */
+  padding: 6px 10px;
+  vertical-align: top; }
+
+.github-user-result-username {
+  display: inline-block;
+  line-height: 46px;
+  font-size: 12px; }
+
+/*------------------------------------*  #AUTO-COMPLETE-AJAX
+\*------------------------------------*/
+.c-auto-complete-ajax--visible {
   display: block; }
 
-.auto-complete-ajax__list--hidden {
+.c-auto-complete-ajax--hidden {
   display: none; }
 
-.auto-complete-ajax__list-title {
+.auto-complete-ajax__title {
   background: #f6f6f6;
   font-size: 12px;
   font-weight: bold;
@@ -536,19 +554,19 @@ input:-ms-input-placeholder {
   padding: 11px 10px 10px;
   border: 0; }
 
-.auto-complete-ajax__list-item {
+.auto-complete-ajax__item {
   display: block;
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.03);
   text-decoration: none !important;
   cursor: pointer; }
-  .auto-complete-ajax__list-item--highlight {
+  .auto-complete-ajax__item--highlight {
     background: #5b72a7;
     color: #eee; }
 
-.auto-complete-ajax__list-bold {
+.auto-complete-ajax__bold {
   color: #111; }
-  .auto-complete-ajax__list-bold--highlight {
+  .auto-complete-ajax__bold--highlight {
     color: #fff; }
 
 /*------------------------------------*  #PREVENT

@@ -1,4 +1,4 @@
-auto_complete_ajax.prototype.input_onkeyup = function()
+auto_complete_ajax.prototype.input_onkeyup = function ()
 {
     var inst = this;
     var input = inst.params.input;
@@ -17,7 +17,7 @@ auto_complete_ajax.prototype.input_onkeyup = function()
     var xhr = new XMLHttpRequest();
     inst.xhr = xhr;
 
-    xhr.onreadystatechange = function()
+    xhr.onreadystatechange = function ()
     {
         if (xhr.readyState == XMLHttpRequest.DONE)
         {
@@ -39,18 +39,20 @@ auto_complete_ajax.prototype.input_onkeyup = function()
     xhr.send();
 };
 
-auto_complete_ajax.prototype.input_onkeydown = function(e)
+auto_complete_ajax.prototype.input_onkeydown = function (e)
 {
     if ((e.which || e.keyCode) == 13) // enter
     {
         e.preventDefault();
-        this.window_open_user_profile(e);
+        this.params.onselect(this.get_highlighted_item(), "enter");
+
+        this.hide_menu();
     }
     else
     { this.arrow_navigate(e); }
 };
 
-auto_complete_ajax.prototype.input_onfocus = function()
+auto_complete_ajax.prototype.input_onfocus = function ()
 {
     if (this.params.input.value.trim() !== "")
     {
@@ -58,12 +60,12 @@ auto_complete_ajax.prototype.input_onfocus = function()
     }
 };
 
-auto_complete_ajax.prototype.container_onmousemove = function(e)
+auto_complete_ajax.prototype.container_onmousemove = function (e)
 {
     this.highlight_item(this.closest_anchor(e.target));
 };
 
-auto_complete_ajax.prototype.container_onclick = function()
+auto_complete_ajax.prototype.container_onclick = function ()
 {
     this.hide_menu();
 };

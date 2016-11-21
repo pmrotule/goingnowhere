@@ -64,7 +64,7 @@ $input-search_box-shadow: $base-box-shadow;
     position: absolute;
     width: 100%;
     top: 0;
-    padding-top: $auto-complete_input-height; /* [3] */
+    padding-top: $input-search_height; /* [3] */
     z-index: 1;
     @include prefix(box-shadow, $input-search_box-shadow, webkit moz);
   }

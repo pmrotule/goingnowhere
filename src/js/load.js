@@ -1,4 +1,4 @@
-window.addEventListener('load', function()
+window.addEventListener('load', function ()
 {
     var input_search = document.querySelector('.js-github-user-search');
 

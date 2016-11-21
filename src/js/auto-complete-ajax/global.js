@@ -1,78 +1,45 @@
-auto_complete_ajax.prototype.ajax_success = function(response)
+auto_complete_ajax.prototype.ajax_success = function (response)
 {
     var p = this.params;
-    var query = p.input.value.trim();
-
-    if (/^\s*[\[\{].*[\]\}]\s*$/.test(response))
-    { response = JSON.parse(response); }
+    var items = p.create_items(response);
+    var count = items.length < p.items_limit ? items.length : p.items_limit;
 
     p.wrapper.innerHTML = "";
 
-    var nb = response.items.length < g_res_limit ?
-    response.items.length : g_res_limit;
-
-    // title goes on top of the results
-    var title = document.createElement('div');
-    title.className = "auto-complete-ajax__list-title";
-    title.innerText = !nb ? "NO RESULTS" :
-    "GITHUB USER" + (nb > 1 ? "S" : "");
-
-    p.wrapper.appendChild(title);
-
-    for (var i = 0; i < nb; i++)
+    if (p.menu_title)
     {
-        var items = this.create_item_anchor(query, response.items[i]);
+        // title goes on top of the results
+        var title = document.createElement('div');
+        title.className = "auto-complete-ajax__title";
+
+        switch (count) {
+            case 0 :
+                title.innerText = p.menu_title.no_results;
+                break;
+            case 1 :
+                title.innerText = p.menu_title.singular;
+                break;
+            default :
+                title.innerText = p.menu_title.plural;
+        }
+        p.wrapper.appendChild(title);
+    }
+
+    for (var i = 0; i < count; i++)
+    {
+        add_class(items[i], "auto-complete-ajax__item");
 
         if (i === 0) // highlight first result
-        { this.highlight_item(items); }
+        { this.highlight_item(items[i]); }
 
-        p.wrapper.appendChild(items);
+        p.wrapper.appendChild(items[i]);
     }
 
     this.show_menu();
-    this.old_value = query;
+    this.old_value = p.input.value.trim();
 };
 
-auto_complete_ajax.prototype.create_item_anchor = function(query, ajax_data)
-{
-    var item = document.createElement('a');
-    item.className = "auto-complete-ajax__list-item";
-    item.href = ajax_data.html_url;
-    item.target = "_blank";
-
-    var avatar = document.createElement('img');
-    avatar.className = "auto-complete-ajax__list-avatar";
-    avatar.src = ajax_data.avatar_url;
-    avatar.draggable = false;
-
-    var name = document.createElement('div');
-    var name_class = "auto-complete-ajax__list-username";
-    name.className = name_class;
-
-    name.innerHTML = ajax_data.login.replace(
-        new RegExp("(" + query + ")", "i"),
-        '<b class="' + name_class + '-b">$1</b>'
-    );
-
-    item.appendChild(avatar);
-    item.appendChild(name);
-
-    return item;
-};
-
-auto_complete_ajax.prototype.window_open_user_profile = function(e)
-{
-    var input = this.input;
-
-    // prevent the menu to reappear when the focus is back on the tab
-    input.blur();
-    this.hide_menu();
-
-    // open github user's profile in a new tab
-    window.open(this.get_highlighted_item().href, '_blank');
-};
-
-auto_complete_ajax.prototype.arrow_navigate = function(e)
+auto_complete_ajax.prototype.arrow_navigate = function (e)
 {
     var input = this.input;
     var key = e.which || e.keyCode;
@@ -110,19 +77,19 @@ auto_complete_ajax.prototype.arrow_navigate = function(e)
     }
 };
 
-auto_complete_github.prototype.element_is_item = function(element)
+auto_complete_github.prototype.element_is_item = function (element)
 {
     return /(\s|^)auto-complete-github__list-item(\s|$)/
         .test(element.className);
 };
 
-auto_complete_github.prototype.element_is_menu = function(element)
+auto_complete_github.prototype.element_is_menu = function (element)
 {
     return /(\s|^)auto-complete-github__list-wrapper(\s|$)/
         .test(element.className);
 };
 
-auto_complete_github.prototype.closest_anchor = function(element)
+auto_complete_github.prototype.closest_anchor = function (element)
 {
     while (!this.element_is_item(element) && !this.element_is_menu(element))
     {
@@ -131,13 +98,13 @@ auto_complete_github.prototype.closest_anchor = function(element)
     return this.element_is_menu(element) ? null : element;
 };
 
-auto_complete_github.prototype.get_highlighted_item = function()
+auto_complete_github.prototype.get_highlighted_item = function ()
 {
     return this.list
         .querySelector('.auto-complete-github__list-item--highlight');
 };
 
-auto_complete_github.prototype.highlight_item = function(anchor)
+auto_complete_github.prototype.highlight_item = function (anchor)
 {
     if (!anchor)
     { return false; }
@@ -169,7 +136,7 @@ auto_complete_github.prototype.highlight_item = function(anchor)
     }
 };
 
-auto_complete_github.prototype.show_menu = function()
+auto_complete_github.prototype.show_menu = function ()
 {
     var input = this;
     var base_class = "auto-complete-github__list";
@@ -178,7 +145,7 @@ auto_complete_github.prototype.show_menu = function()
     base_class + " " + base_class + "--visible";
 };
 
-auto_complete_github.prototype.hide_menu = function()
+auto_complete_github.prototype.hide_menu = function ()
 {
     var input = this;
     var base_class = "auto-complete-github__list";

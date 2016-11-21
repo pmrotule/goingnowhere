@@ -8,7 +8,7 @@ function auto_complete_ajax(params)
         wrapper : wrapper element,
         ajax* : {
             url* : XMLHttpRequest url -> xhr.open("GET", url),
-            success* : callback function on success -> function(response){},
+            success* : callback function on success e.g. function (response) {},
             error : callback function on error
         },
         menu_title : { // text displayed at the top of the menu
@@ -16,16 +16,22 @@ function auto_complete_ajax(params)
             singular : "ONE RESULT",   // define all three properties
             plural : "SEVERAL RESULTS"
         },
-        create_item : function returning the item element
+        create_items* : function returning an array of item elements to append to
+                        the results container,
+        items_limit : the limit of items to display (default: 5),
+        onselect : function called when a selection is made
+                   e.g. function (item_element_selected, context)
+                   (context would be "enter" or "click")
     };
     */
-    var default = {
+    var p_default = {
         ajax : {
-            error : function()
+            error : function ()
             { alert('An error occured.'); }
-        }
+        },
+        items_limit : 5
     };
-    var p = deep_extend({}, default, params); // deep_extend set in global.js
+    var p = deep_extend({}, p_default, params); // deep_extend set in global.js
 
     console.log(p);
 

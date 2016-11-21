@@ -25,7 +25,7 @@ function create_input_search_from(input)
     icon.className = "input-search__icon";
     icon.src = "img/search.svg";
     icon.draggable = false;
-    icon.onclick = function()
+    icon.onclick = function ()
     {
         input.focus();
     };
