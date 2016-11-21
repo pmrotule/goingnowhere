@@ -4,24 +4,24 @@ var g_input_search_count = 0;
 
 function create_input_search_from(input) {
     // check if the "input-search" has already been created
-    if (/(\s|^)c-input-search(\s|$)/.test(input.className)) {
+    if (/(\s|^)input-search__input(\s|$)/.test(input.className)) {
         return false;
     } else {
         if (input.className != "") {
             input.className += " ";
         }
 
-        input.className += "c-input-search";
+        input.className += "input-search__input";
     }
 
     // create the wrapper and insert it in the document
     var wrapper = document.createElement('div');
-    wrapper.className = "input-search-wrapper";
+    wrapper.className = "c-input-search";
     input.parentNode.insertBefore(wrapper, input);
 
     // create the search icon and append it to the wrapper
     var icon = document.createElement('img');
-    icon.className = "input-search-icon";
+    icon.className = "input-search__icon";
     icon.src = "img/search.svg";
     icon.draggable = false;
     icon.onclick = function () {

@@ -1,6 +1,17 @@
 "use strict";
 
-function auto_complete_ajax(input, menu) {
+function auto_complete_ajax(params) {
+    /* Mandatory parameters are marked with an asterisk
+    params = {
+        input* : inputElement,
+        menu* : menuElement,
+        ajax* : {
+            url* : XMLHttpRequest url -> xhr.open("GET", url),
+            success* : callback function on success,
+            error : callback function on error
+        }
+     };
+    */
     // check if the autocomplete has already been created
     if (/(\s|^)js-auto-complete-ajax-active(\s|$)/.test(input.className)) {
         return false;

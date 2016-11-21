@@ -1,5 +1,34 @@
-function auto_complete_ajax(input, menu)
+// Add autocomplete functionality to an input using ajax calls on keyup. As the
+//user types, results will show up in the menu.
+function auto_complete_ajax(params)
 {
+    /* Mandatory parameters are marked with an asterisk
+    params = {
+        input* : input element,
+        wrapper : wrapper element,
+        ajax* : {
+            url* : XMLHttpRequest url -> xhr.open("GET", url),
+            success* : callback function on success -> function(response){},
+            error : callback function on error
+        },
+        menu_title : { // text displayed at the top of the menu
+            no_results : "NO RESULTS", // if you set menu_title, you need to
+            singular : "ONE RESULT",   // define all three properties
+            plural : "SEVERAL RESULTS"
+        },
+        create_item : function returning the item element
+    };
+    */
+    var default = {
+        ajax : {
+            error : function()
+            { alert('An error occured.'); }
+        }
+    };
+    var p = deep_extend({}, default, params); // deep_extend set in global.js
+
+    console.log(p);
+
     // check if the autocomplete has already been created
     if (/(\s|^)js-auto-complete-ajax-active(\s|$)/.test(input.className))
     {
@@ -13,15 +42,22 @@ function auto_complete_ajax(input, menu)
         input.className += "js-auto-complete-ajax-active";
     }
 
-    // create the results wrapper and append it to the menu
-    var wrapper = document.createElement('div');
-    var wrapper_class = "c-auto-complete-ajax";
-    wrapper.className = wrapper_class + " " + wrapper_class + "--hidden";
-    menu.appendChild(wrapper);
+    // If no wrapper element has been defined, create one and insert it after
+    // the input element
+    if (!p.wrapper || !p.wrapper.nodeType)
+    {
+        p.wrapper = document.createElement('div');
+        p.input.parentNode.insertBefore(p.wrapper, p.input.nextSibling);
+    }
+
+    // create the results container and append it to the wrapper
+    var container = document.createElement('div');
+    var container_class = "c-auto-complete-ajax";
+    container.className = container_class + " " + container_class + "--hidden";
+    wrapper.appendChild(container);
 
     // attach relevant data to the instance
-    this.input = input;
-    this.wrapper = wrapper;
+    this.params = p;
     this.xhr = null;
     this.old_value = "";
 
@@ -33,6 +69,7 @@ function auto_complete_ajax(input, menu)
     // better using mousemove than mouseover:
     // in case the user used the arrow keys to change the highlighted item
     // between two mouse movements over the same item
-    wrapper.addEventListener('mousemove', this.wrapper_onmousemove.bind(this));
-    wrapper.addEventListener('click',     this.wrapper_onclick.bind(this));
+    container.addEventListener('mousemove',
+        this.container_onmousemove.bind(this));
+    container.addEventListener('click', this.container_onclick.bind(this));
 };
