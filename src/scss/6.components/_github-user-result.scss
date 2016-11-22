@@ -1,0 +1,30 @@
+/*------------------------------------*\
+  #GITHUB-USER-RESULT
+\*------------------------------------*/
+
+// The class ".c-github-user-result" will be added to
+// ".auto-complete-ajax__item" without adding style.
+
+
+
+
+
+// Dimensions of the result
+$github-user-result_height: $input-search_height;
+
+/**
+ * 1. Default avatar size is 34px.
+ */
+
+.github-user-result-avatar {
+  width:  34px; /* [1] */
+  height: 34px; /* [1] */
+  padding: 6px 10px;
+  vertical-align: top;
+}
+
+.github-user-result-username {
+  display: inline-block;
+  line-height: $github-user-result_height;
+  font-size: 12px;
+}

@@ -1,7 +1,10 @@
-window.addEventListener('load', function()
+window.addEventListener('load', function ()
 {
-    var auto_complete = document.querySelectorAll('.js-auto-complete-github');
+    var input_search = document.querySelector('.js-github-user-search');
 
-    for (var i = 0; i < auto_complete.length; i++)
-    { new auto_complete_github(auto_complete[i]); }
+    var input_elements = create_input_search_from(input_search);
+    var auto_complete_params =
+        github_user_result(input_elements.input, input_elements.menu);
+
+    new auto_complete_ajax(auto_complete_params);
 });
