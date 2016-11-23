@@ -30,6 +30,7 @@
  * Input-search...............Input search styles.
  * Github-user-result.........Github user result styles.
  * Auto-complete-ajax.........Auto-complete-ajax styles.
+ * Input-autocomplete.........Input-autocomplete styles.
  *
  * TRUMPS
  * Prevent....................Helpers to prevent default functionalities.
@@ -568,6 +569,63 @@ input:-ms-input-placeholder {
     color: #111; }
     .c-auto-complete-ajax__bold--highlight {
       color: #fff; }
+
+/*------------------------------------*  #GITHUB-AUTOCOMPLETE
+\*------------------------------------*/
+.c-input-autocomplete {
+  position: relative;
+  background: #fff;
+  min-width: 320px;
+  width: 320px;
+  cursor: default; }
+  .c-input-autocomplete__input {
+    position: relative;
+    vertical-align: top;
+    width: 270px;
+    height: 46px;
+    line-height: 46px;
+    font-size: 18px;
+    z-index: 2; }
+  .c-input-autocomplete__icon {
+    position: relative;
+    vertical-align: top;
+    margin: 13px 14px 11px;
+    width: 22px;
+    height: 22px;
+    z-index: 2; }
+  .c-input-autocomplete__menu-wrapper {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    padding-top: 46px;
+    z-index: 1;
+    -webkit-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.15); }
+  .c-input-autocomplete__menu {
+    display: block; }
+    .c-input-autocomplete__menu--hidden {
+      display: none; }
+    .c-input-autocomplete__menu-title {
+      background: #f6f6f6;
+      font-size: 12px;
+      font-weight: bold;
+      color: #777;
+      padding: 11px 10px 10px;
+      border: 0; }
+    .c-input-autocomplete__menu-item {
+      display: block;
+      background: #fff;
+      border: 1px solid rgba(0, 0, 0, 0.03);
+      text-decoration: none !important;
+      cursor: pointer; }
+      .c-input-autocomplete__menu-item b {
+        color: #111; }
+      .c-input-autocomplete__menu-item--highlight {
+        background: #5b72a7;
+        color: #eee; }
+        .c-input-autocomplete__menu-item--highlight b {
+          color: #fff; }
 
 /*------------------------------------*  #PREVENT
 \*------------------------------------*/
