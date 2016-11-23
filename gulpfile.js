@@ -1,9 +1,11 @@
 const gulp  = require('gulp');
+const changed = require('gulp-changed');
 const babel = require('gulp-babel');
 const sass  = require('gulp-sass');
 
 gulp.task('es6', () => {
     return gulp.src('src/js/**/*.js')
+        .pipe(changed('public/js'))
         .pipe(babel({
             presets: ['es2015'],
             plugins: ['transform-object-assign']
