@@ -42,12 +42,12 @@ function github_user_result(input, auto_complete_menu)
                 item.target = "_blank";
 
                 var avatar = document.createElement('img');
-                avatar.className = "github-user-result-avatar";
+                avatar.className = "c-github-user-result__avatar";
                 avatar.src = data[i].avatar_url;
                 avatar.draggable = false;
 
                 var name = document.createElement('div');
-                name.className = "github-user-result-username";
+                name.className = "c-github-user-result__username";
                 name.innerHTML = data[i].login.replace(
                     new RegExp("(" + query + ")", "i"), '<b>$1</b>'
                 );

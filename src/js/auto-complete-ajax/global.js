@@ -11,7 +11,7 @@ auto_complete_ajax.prototype.ajax_success = function (response)
     {
         // title goes on top of the results
         var title = document.createElement('div');
-        title.className = "auto-complete-ajax__title";
+        title.className = "c-auto-complete-ajax__title";
 
         switch (count) {
             case 0 :
@@ -29,13 +29,13 @@ auto_complete_ajax.prototype.ajax_success = function (response)
     for (var i = 0; i < count; i++)
     {
         // add the class to the item element
-        add_class(items[i], "auto-complete-ajax__item");
+        add_class(items[i], "c-auto-complete-ajax__item");
 
         // add the class to the bold and strong tags
         var bold_elements = items[i].querySelectorAll("b, strong");
 
         for (var j = 0; j < bold_elements.length; j++)
-        { add_class(bold_elements[j], "auto-complete-ajax__bold"); }
+        { add_class(bold_elements[j], "c-auto-complete-ajax__bold"); }
 
         // highlight first result
         if (i === 0)
@@ -57,7 +57,7 @@ auto_complete_ajax.prototype.arrow_navigate = function (e)
         e.preventDefault();
 
         var items = this.container
-            .querySelectorAll('.auto-complete-ajax__item');
+            .querySelectorAll('.c-auto-complete-ajax__item');
         var item_highlighted = this.get_highlighted_item();
 
         if (item_highlighted === null)
@@ -87,7 +87,7 @@ auto_complete_ajax.prototype.arrow_navigate = function (e)
 
 auto_complete_ajax.prototype.element_is_item = function (element)
 {
-    return /(\s|^)auto-complete-ajax__item(\s|$)/.test(element.className);
+    return /(\s|^)c-auto-complete-ajax__item(\s|$)/.test(element.className);
 };
 
 auto_complete_ajax.prototype.element_is_menu = function (element)
@@ -107,7 +107,7 @@ auto_complete_ajax.prototype.closest_item = function (element)
 auto_complete_ajax.prototype.get_highlighted_item = function ()
 {
     return this.container
-        .querySelector('.auto-complete-ajax__item--highlight');
+        .querySelector('.c-auto-complete-ajax__item--highlight');
 };
 
 auto_complete_ajax.prototype.highlight_item = function (anchor)
@@ -116,8 +116,8 @@ auto_complete_ajax.prototype.highlight_item = function (anchor)
     { return false; }
 
     var item_highlighted = this.get_highlighted_item();
-    var item_class = "auto-complete-ajax__item";
-    var b_class = "auto-complete-ajax__bold";
+    var item_class = "c-auto-complete-ajax__item";
+    var b_class = "c-auto-complete-ajax__bold";
 
     if (item_highlighted !== null)
     {

@@ -4,14 +4,14 @@ var g_input_search_count = 0;
 
 function create_input_search_from(input) {
     // check if the "input-search" has already been created
-    if (/(\s|^)input-search__input(\s|$)/.test(input.className)) {
+    if (/(\s|^)c-input-search__input(\s|$)/.test(input.className)) {
         return false;
     } else {
         if (input.className != "") {
             input.className += " ";
         }
 
-        input.className += "input-search__input";
+        input.className += "c-input-search__input";
     }
 
     // create the wrapper and insert it in the document
@@ -21,7 +21,7 @@ function create_input_search_from(input) {
 
     // create the search icon and append it to the wrapper
     var icon = document.createElement('img');
-    icon.className = "input-search__icon";
+    icon.className = "c-input-search__icon";
     icon.src = "img/search.svg";
     icon.draggable = false;
     icon.onclick = function () {
@@ -36,7 +36,7 @@ function create_input_search_from(input) {
     // The menu is ready to accept items but it is not mandatory. It is created
     // no matter what since it has the box-shadow property.
     var menu = document.createElement('div');
-    menu.className = "input-search__menu";
+    menu.className = "c-input-search__menu";
     wrapper.appendChild(menu);
 
     // reverse the default z-index order of occurrence to prevent a menu from
