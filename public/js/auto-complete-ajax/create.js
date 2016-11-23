@@ -1,5 +1,7 @@
 "use strict";
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 // Add autocomplete functionality to an input using ajax calls on keyup. As the
 // user types, results will show up in the menu.
 function auto_complete_ajax(params) {
@@ -8,11 +10,11 @@ function auto_complete_ajax(params) {
         input* : input element,
         wrapper : wrapper element with position absolute
                   (where the results container is appended),
-         ajax_url* : XMLHttpRequest url -> Can be a string or a function
+          ajax_url* : XMLHttpRequest url -> Can be a string or a function
                     returning a string. The function would be called before each
                     request. e.g. function (query) {}
-         ajax_error : callback function on error,
-         menu_title : { // text displayed at the top of the menu
+          ajax_error : callback function on error,
+          menu_title : { // text displayed at the top of the menu
             no_results : "NO RESULTS", // if you set menu_title, you need to
             singular : "ONE RESULT",   // define all three properties
             plural : "SEVERAL RESULTS"
@@ -20,7 +22,7 @@ function auto_complete_ajax(params) {
         create_items* : function returning an array of item elements to append
                         to the results container
                         e.g. function (query, ajax_response) {}
-         items_limit : the limit of items to display (default: 5),
+          items_limit : the limit of items to display (default: 5),
         onselect* : function called when a selection is made
                     e.g. function (item_element_selected, context)
                     (context would be "enter" or "click")
@@ -34,7 +36,7 @@ function auto_complete_ajax(params) {
         },
         items_limit: 5
     };
-    var p = Object.assign({}, p_default, params);
+    var p = _extends({}, p_default, params);
 
     // check if the autocomplete has already been created
     if (/(\s|^)js-auto-complete-ajax-active(\s|$)/.test(p.input.className)) {

@@ -5,7 +5,8 @@ const sass  = require('gulp-sass');
 gulp.task('es6', () => {
     return gulp.src('src/js/**/*.js')
         .pipe(babel({
-            presets: ['es2015']
+            presets: ['es2015'],
+            plugins: ['transform-object-assign']
         }))
         .pipe(gulp.dest('public/js'));
 });
