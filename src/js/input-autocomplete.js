@@ -1,5 +1,4 @@
 const g_github_token = "f28435cfc0d491276c66b6509818317912adc143";
-const g_github_user_results_limit = 5;
 
 class InputAutocomplete {
   constructor(input) {
@@ -28,15 +27,16 @@ class InputAutocomplete {
     wrapper.appendChild(menu_wrapper);
 
     const menu = document.createElement('div');
-    container.className = `${main_class}__menu ${main_class}__menu--hidden`;
+    menu.className = `${main_class}__menu ${main_class}__menu--hidden`;
+    menu_wrapper.appendChild(menu);
 
-    Object.assign(this, { input, menu, fetch: null, oldValue: "" });
+    Object.assign(this, { input, menu, fetchId: null, oldValue: "" });
 
-    input.addEventListener('keyup',   () => this.onkeyup());
-    input.addEventListener('keydown', () => this.onkeydown());
+    input.addEventListener('keyup',   event => this.onkeyup(event));
+    input.addEventListener('keydown', event => this.onkeydown(event));
     input.addEventListener('focus',   () => this.showMenu());
 
-    menu.addEventListener('click',     () => this.hideMenu());
+    menu.addEventListener('click', () => this.hideMenu());
     menu.addEventListener('mousemove', (event) =>
       this.highlightItem(this.getParentItem(event.target))
     );
@@ -44,53 +44,52 @@ class InputAutocomplete {
   onkeyup() {
     const api_url = "https://api.github.com/search/users";
     const query = this.input.value.trim();
+    const fetchId = Symbol();
+    this.fetchId = fetchId;
 
     if (query === "") {
       this.hideMenu();
       return false;
     }
-    if (inst.oldValue === query) {
+    if (this.oldValue === query) {
       return false;
     }
-    if (this.fetch) {
-      this.fetch.abort();
-    }
 
-    const fetch = fetch(`${api_url}?q=${query}&access_token=${g_github_token}`)
+    window.fetch(`${api_url}?q=${query}&access_token=${g_github_token}`)
       .then(response => {
         if (response.ok)
-          this.renderMenu(response.json(), query);
+          return response.json();
         else
           console.log('Network response was not ok.');
       })
-      .catch(error => {
-        console.log(`There has been a problem with your fetch operation:
-          ${error.message}`);
-      });
+      .then(response_obj => {
+        if (fetchId === this.fetchId)
+          this.renderMenu(response_obj, query)
+      })
+      .catch(error => console.dir(error));
   }
   onkeydown(event) {
     const key = event.which || event.keyCode;
 
     if (key === 13) { // enter
       event.preventDefault();
-      input.blur();
+      this.input.blur();
       this.hideMenu();
       window.open(this.getHighlightedItem().href, '_blank');
     }
     else if (key === 40 || key === 38) { // down or up
       event.preventDefault();
+      const items = this.menu.querySelectorAll('.c-input-autocomplete__item');
       const highlighted = this.getHighlightedItem();
-      const items = highlighted.parentNode.children;
 
       let index = Array.from(items).indexOf(highlighted);
 
       if (key == 40) // down
         index++;
-      else if (key == 38) { // up
+      else if (key == 38) // up
         index--;
 
-      if (items[index])
-        this.highlightItem(items[index]);
+      this.highlightItem(items[index]);
     }
   }
   showMenu() {
@@ -101,17 +100,17 @@ class InputAutocomplete {
     this.menu.classList.add('c-input-autocomplete__menu--hidden');
   }
   renderMenu(response, query) {
-    const items = p.createItems(query, response);
+    const items = this.createItems(response, query);
     this.menu.innerHTML = "";
 
     const title = document.createElement('div');
-    title.className = "c-auto-complete-ajax__title";
+    title.className = "c-input-autocomplete__menu-title";
     title.innerText = this.getTitle(items.length);
-    this.container.appendChild(title);
+    this.menu.appendChild(title);
 
     items.map((item, index) => {
       if (index === 0) {
-        this.highlightItem(item);
+        item.classList.add('c-input-autocomplete__item--highlight');
       }
       this.menu.appendChild(item);
     });
@@ -119,12 +118,8 @@ class InputAutocomplete {
     this.showMenu();
     this.oldValue = query;
   }
-  getTitle(items_length) {
-    return !items_length ? "NO RESULTS" :
-    `GITHUB USER${items_length > 1 ? "S" : ""}`;
-  }
   createItems(response, query) {
-    return response.items.slice(0, g_github_user_results_limit).map(item => {
+    return response.items.slice(0, 5).map(item => {
       const wrapper = document.createElement('a');
       wrapper.className = "c-input-autocomplete__item";
       wrapper.href = item.html_url;
@@ -141,6 +136,29 @@ class InputAutocomplete {
       name.innerHTML = item.login
         .replace(new RegExp(`(${query})`, 'ig'), '<b>$1</b>');
       wrapper.appendChild(name);
+
+      return wrapper;
     });
+  }
+  highlightItem(item) {
+    if (item) {
+      this.getHighlightedItem()
+        .classList.remove('c-input-autocomplete__item--highlight');
+      item.classList.add('c-input-autocomplete__item--highlight');
+    }
+  }
+  getHighlightedItem() {
+    return this.menu.querySelector('.c-input-autocomplete__item--highlight');
+  }
+  getParentItem(element) {
+    while (!element.classList.contains('c-input-autocomplete__item')
+    && !element.classList.contains('c-input-autocomplete')) {
+      element = element.parentNode;
+    }
+    return element.classList.contains('c-input-autocomplete') ? null : element;
+  }
+  getTitle(items_length) {
+    return !items_length ? "NO RESULTS" :
+    `GITHUB USER${items_length > 1 ? "S" : ""}`;
   }
 }

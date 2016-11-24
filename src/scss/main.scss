@@ -29,9 +29,6 @@
  * Demo-github-user-search....Layout of the demo container.
  *
  * COMPONENTS
- * Input-search...............Input search styles.
- * Github-user-result.........Github user result styles.
- * Auto-complete-ajax.........Auto-complete-ajax styles.
  * Input-autocomplete.........Input-autocomplete styles.
  *
  * TRUMPS
@@ -83,9 +80,6 @@
 
 
 
-@import "6.components/input-search";
-@import "6.components/github-user-result";
-@import "6.components/auto-complete-ajax";
 @import "6.components/input-autocomplete";
 
 

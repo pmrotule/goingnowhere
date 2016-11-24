@@ -7,7 +7,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var g_github_token = "f28435cfc0d491276c66b6509818317912adc143";
-var g_github_user_results_limit = 5;
 
 var InputAutocomplete = function () {
   function InputAutocomplete(input) {
@@ -17,11 +16,7 @@ var InputAutocomplete = function () {
 
     var main_class = "c-input-autocomplete";
 
-    if (input.classList.contains(main_class + "__input")) {
-      return false;
-    } else {
-      input.classList.add(main_class + "__input");
-    }
+    if (input.classList.contains(main_class + "__input")) return false;else input.classList.add(main_class + "__input");
 
     var wrapper = document.createElement('div');
     wrapper.className = main_class;
@@ -43,15 +38,16 @@ var InputAutocomplete = function () {
     wrapper.appendChild(menu_wrapper);
 
     var menu = document.createElement('div');
-    container.className = main_class + "__menu " + main_class + "__menu--hidden";
+    menu.className = main_class + "__menu " + main_class + "__menu--hidden";
+    menu_wrapper.appendChild(menu);
 
-    _extends(this, { input: input, menu: menu, request: null, oldValue: "" });
+    _extends(this, { input: input, menu: menu, fetchId: null, oldValue: "" });
 
-    input.addEventListener('keyup', function () {
-      return _this.onkeyup();
+    input.addEventListener('keyup', function (event) {
+      return _this.onkeyup(event);
     });
-    input.addEventListener('keydown', function () {
-      return _this.onkeydown();
+    input.addEventListener('keydown', function (event) {
+      return _this.onkeydown(event);
     });
     input.addEventListener('focus', function () {
       return _this.showMenu();
@@ -72,26 +68,23 @@ var InputAutocomplete = function () {
 
       var api_url = "https://api.github.com/search/users";
       var query = this.input.value.trim();
+      var fetchId = Symbol();
+      this.fetchId = fetchId;
 
       if (query === "") {
         this.hideMenu();
         return false;
       }
-      if (inst.oldValue === query) {
+      if (this.oldValue === query) {
         return false;
       }
-      if (this.request) {
-        this.request.abort();
-      }
 
-      var request = fetch(api_url + "?q=" + query + "&access_token=" + g_github_token).then(function (response) {
-        if (response.ok) {
-          _this2.renderMenu(response.json(), query);
-        } else {
-          console.log('Network response was not ok.');
-        }
+      window.fetch(api_url + "?q=" + query + "&access_token=" + g_github_token).then(function (response) {
+        if (response.ok) return response.json();else console.log('Network response was not ok.');
+      }).then(function (response_obj) {
+        if (fetchId === _this2.fetchId) _this2.renderMenu(response_obj, query);
       }).catch(function (error) {
-        console.log("There has been a problem with your fetch operation:\n          " + error.message);
+        return console.dir(error);
       });
     }
   }, {
@@ -102,42 +95,22 @@ var InputAutocomplete = function () {
       if (key === 13) {
         // enter
         event.preventDefault();
-        input.blur();
+        this.input.blur();
         this.hideMenu();
         window.open(this.getHighlightedItem().href, '_blank');
       } else if (key === 40 || key === 38) {
         // down or up
         event.preventDefault();
+        var items = this.menu.querySelectorAll('.c-input-autocomplete__item');
+        var highlighted = this.getHighlightedItem();
 
-        var items = this.menu.querySelectorAll('.c-auto-complete-ajax__item');
-        var item_highlighted = this.get_highlighted_item();
-
-        if (item_highlighted === null) {
-          console.log("No anchor were highlighted.");
-          return false;
-        }
-
-        var index = null;
-
-        for (var i = 0; i < items.length; i++) {
-          if (items[i] === item_highlighted) {
-            index = i;
-          }
-        }
+        var index = Array.from(items).indexOf(highlighted);
 
         if (key == 40) // down
-          {
-            index++;
-          }
+          index++;else if (key == 38) // up
+          index--;
 
-        if (key == 38) // up
-          {
-            index--;
-          }
-
-        if (items[index]) {
-          this.highlight_item(items[index]);
-        }
+        this.highlightItem(items[index]);
       }
     }
   }, {
@@ -155,17 +128,17 @@ var InputAutocomplete = function () {
     value: function renderMenu(response, query) {
       var _this3 = this;
 
-      var items = p.createItems(query, response);
+      var items = this.createItems(response, query);
       this.menu.innerHTML = "";
 
       var title = document.createElement('div');
-      title.className = "c-auto-complete-ajax__title";
+      title.className = "c-input-autocomplete__menu-title";
       title.innerText = this.getTitle(items.length);
-      this.container.appendChild(title);
+      this.menu.appendChild(title);
 
       items.map(function (item, index) {
         if (index === 0) {
-          _this3.highlightItem(item);
+          item.classList.add('c-input-autocomplete__item--highlight');
         }
         _this3.menu.appendChild(item);
       });
@@ -174,14 +147,9 @@ var InputAutocomplete = function () {
       this.oldValue = query;
     }
   }, {
-    key: "getTitle",
-    value: function getTitle(items_length) {
-      return !items_length ? "NO RESULTS" : "GITHUB USER" + (items_length > 1 ? "S" : "");
-    }
-  }, {
     key: "createItems",
     value: function createItems(response, query) {
-      return response.items.slice(0, g_github_user_results_limit).map(function (item) {
+      return response.items.slice(0, 5).map(function (item) {
         var wrapper = document.createElement('a');
         wrapper.className = "c-input-autocomplete__item";
         wrapper.href = item.html_url;
@@ -197,7 +165,35 @@ var InputAutocomplete = function () {
         name.className = "c-input-autocomplete__username";
         name.innerHTML = item.login.replace(new RegExp("(" + query + ")", 'ig'), '<b>$1</b>');
         wrapper.appendChild(name);
+
+        return wrapper;
       });
+    }
+  }, {
+    key: "highlightItem",
+    value: function highlightItem(item) {
+      if (item) {
+        this.getHighlightedItem().classList.remove('c-input-autocomplete__item--highlight');
+        item.classList.add('c-input-autocomplete__item--highlight');
+      }
+    }
+  }, {
+    key: "getHighlightedItem",
+    value: function getHighlightedItem() {
+      return this.menu.querySelector('.c-input-autocomplete__item--highlight');
+    }
+  }, {
+    key: "getParentItem",
+    value: function getParentItem(element) {
+      while (!element.classList.contains('c-input-autocomplete__item') && !element.classList.contains('c-input-autocomplete')) {
+        element = element.parentNode;
+      }
+      return element.classList.contains('c-input-autocomplete') ? null : element;
+    }
+  }, {
+    key: "getTitle",
+    value: function getTitle(items_length) {
+      return !items_length ? "NO RESULTS" : "GITHUB USER" + (items_length > 1 ? "S" : "");
     }
   }]);
 
