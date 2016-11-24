@@ -53,31 +53,44 @@ $input-autocomplete_color-highlight: $color-blue-highlight;
     &--hidden {
       display: none;
     }
+  }
 
-    &-title {
-      background: #f6f6f6;
-      font-size: 12px;
-      font-weight: bold;
-      color: #777;
-      padding: 11px 10px 10px;
-      border: 0;
+  &__menu-title {
+    background: #f6f6f6;
+    font-size: 12px;
+    font-weight: bold;
+    color: #777;
+    padding: 11px 10px 10px;
+    border: 0;
+  }
+
+  &__item {
+    display: block;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    text-decoration: none !important;
+    cursor: pointer;
+
+    b { color: #111; }
+
+    &--highlight {
+      background: $input-autocomplete_color-highlight;
+      color: #eee;
+
+      b { color: #fff; }
     }
+  }
 
-    &-item {
-      display: block;
-      background: #fff;
-      border: 1px solid rgba(0, 0, 0, 0.03);
-      text-decoration: none !important;
-      cursor: pointer;
+  &__avatar {
+    width:  34px;
+    height: 34px;
+    padding: 6px 10px;
+    vertical-align: top;
+  }
 
-      b { color: #111; }
-
-      &--highlight {
-        background: $input-autocomplete_color-highlight;
-        color: #eee;
-
-        b { color: #fff; }
-      }
-    }
+  &__username {
+    display: inline-block;
+    line-height: $input-autocomplete_height;
+    font-size: 12px;
   }
 }

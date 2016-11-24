@@ -606,26 +606,35 @@ input:-ms-input-placeholder {
     display: block; }
     .c-input-autocomplete__menu--hidden {
       display: none; }
-    .c-input-autocomplete__menu-title {
-      background: #f6f6f6;
-      font-size: 12px;
-      font-weight: bold;
-      color: #777;
-      padding: 11px 10px 10px;
-      border: 0; }
-    .c-input-autocomplete__menu-item {
-      display: block;
-      background: #fff;
-      border: 1px solid rgba(0, 0, 0, 0.03);
-      text-decoration: none !important;
-      cursor: pointer; }
-      .c-input-autocomplete__menu-item b {
-        color: #111; }
-      .c-input-autocomplete__menu-item--highlight {
-        background: #5b72a7;
-        color: #eee; }
-        .c-input-autocomplete__menu-item--highlight b {
-          color: #fff; }
+  .c-input-autocomplete__menu-title {
+    background: #f6f6f6;
+    font-size: 12px;
+    font-weight: bold;
+    color: #777;
+    padding: 11px 10px 10px;
+    border: 0; }
+  .c-input-autocomplete__item {
+    display: block;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    text-decoration: none !important;
+    cursor: pointer; }
+    .c-input-autocomplete__item b {
+      color: #111; }
+    .c-input-autocomplete__item--highlight {
+      background: #5b72a7;
+      color: #eee; }
+      .c-input-autocomplete__item--highlight b {
+        color: #fff; }
+  .c-input-autocomplete__avatar {
+    width: 34px;
+    height: 34px;
+    padding: 6px 10px;
+    vertical-align: top; }
+  .c-input-autocomplete__username {
+    display: inline-block;
+    line-height: 46px;
+    font-size: 12px; }
 
 /*------------------------------------*  #PREVENT
 \*------------------------------------*/
