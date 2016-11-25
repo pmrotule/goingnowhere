@@ -3,10 +3,7 @@
 \*------------------------------------*/
 
 $input-autocomplete_height: 46px;
-
 $input-autocomplete_icon-size: 22px;
-$input-autocomplete_icon-vmargin:
-  ($input-autocomplete_height - $input-autocomplete_icon-size) / 2;
 
 $input-autocomplete_box-shadow: $base-box-shadow;
 $input-autocomplete_color-highlight: $color-blue-highlight;
@@ -16,6 +13,7 @@ $input-autocomplete_color-highlight: $color-blue-highlight;
   background: #fff;
   min-width: 320px;
   width: 320px;
+  line-height: $input-autocomplete_height;
   cursor: default;
 
   &__input {
@@ -30,9 +28,8 @@ $input-autocomplete_color-highlight: $color-blue-highlight;
 
   &__icon {
     position: relative;
-    vertical-align: top;
-    margin: ($input-autocomplete_icon-vmargin + 1) 14px
-            ($input-autocomplete_icon-vmargin - 1);
+    vertical-align: middle;
+    margin: 0 14px;
     width:  $input-autocomplete_icon-size;
     height: $input-autocomplete_icon-size;
     z-index: 2;
@@ -43,6 +40,7 @@ $input-autocomplete_color-highlight: $color-blue-highlight;
     width: 100%;
     top: 0;
     padding-top: $input-autocomplete_height;
+    line-height: 1.5;
     z-index: 1;
     @include prefix(box-shadow, $input-autocomplete_box-shadow, webkit moz);
   }
