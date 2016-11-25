@@ -6,7 +6,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var g_github_token = "f28435cfc0d491276c66b6509818317912adc143";
+var GITHUB_TOKEN = "f28435cfc0d491276c66b6509818317912adc143";
+var KEY_ENTER = 13,
+    KEY_UP = 38,
+    KEY_DOWN = 40;
 
 var InputAutocomplete = function () {
   function InputAutocomplete(input) {
@@ -79,7 +82,7 @@ var InputAutocomplete = function () {
         return false;
       }
 
-      window.fetch(api_url + "?q=" + query + "&access_token=" + g_github_token).then(function (response) {
+      window.fetch(api_url + "?q=" + query + "&access_token=" + GITHUB_TOKEN).then(function (response) {
         if (response.ok) return response.json();else console.log('Network response was not ok.');
       }).then(function (response_obj) {
         if (fetchId === _this2.fetchId) _this2.renderMenu(response_obj, query);
@@ -92,23 +95,19 @@ var InputAutocomplete = function () {
     value: function onkeydown(event) {
       var key = event.which || event.keyCode;
 
-      if (key === 13) {
-        // enter
+      if (key === KEY_ENTER) {
         event.preventDefault();
         this.input.blur();
         this.hideMenu();
         window.open(this.getHighlightedItem().href, '_blank');
-      } else if (key === 40 || key === 38) {
-        // down or up
+      } else if (key === KEY_DOWN || key === KEY_UP) {
         event.preventDefault();
         var items = this.menu.querySelectorAll('.c-input-autocomplete__item');
         var highlighted = this.getHighlightedItem();
 
         var index = Array.from(items).indexOf(highlighted);
 
-        if (key == 40) // down
-          index++;else if (key == 38) // up
-          index--;
+        if (key == KEY_DOWN) index++;else if (key == KEY_UP) index--;
 
         this.highlightItem(items[index]);
       }

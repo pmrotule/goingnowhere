@@ -1,4 +1,5 @@
-const g_github_token = "f28435cfc0d491276c66b6509818317912adc143";
+const GITHUB_TOKEN = "f28435cfc0d491276c66b6509818317912adc143";
+const KEY_ENTER = 13, KEY_UP = 38, KEY_DOWN = 40;
 
 class InputAutocomplete {
   constructor(input) {
@@ -55,7 +56,7 @@ class InputAutocomplete {
       return false;
     }
 
-    window.fetch(`${api_url}?q=${query}&access_token=${g_github_token}`)
+    window.fetch(`${api_url}?q=${query}&access_token=${GITHUB_TOKEN}`)
       .then(response => {
         if (response.ok)
           return response.json();
@@ -71,22 +72,22 @@ class InputAutocomplete {
   onkeydown(event) {
     const key = event.which || event.keyCode;
 
-    if (key === 13) { // enter
+    if (key === KEY_ENTER) {
       event.preventDefault();
       this.input.blur();
       this.hideMenu();
       window.open(this.getHighlightedItem().href, '_blank');
     }
-    else if (key === 40 || key === 38) { // down or up
+    else if (key === KEY_DOWN || key === KEY_UP) {
       event.preventDefault();
       const items = this.menu.querySelectorAll('.c-input-autocomplete__item');
       const highlighted = this.getHighlightedItem();
 
       let index = Array.from(items).indexOf(highlighted);
 
-      if (key == 40) // down
+      if (key == KEY_DOWN)
         index++;
-      else if (key == 38) // up
+      else if (key == KEY_UP)
         index--;
 
       this.highlightItem(items[index]);
