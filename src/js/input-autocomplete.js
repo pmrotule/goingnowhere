@@ -45,8 +45,6 @@ class InputAutocomplete {
   onkeyup() {
     const api_url = "https://api.github.com/search/users";
     const query = this.input.value.trim();
-    const fetchId = Symbol();
-    this.fetchId = fetchId;
 
     if (query === "") {
       this.hideMenu();
@@ -56,18 +54,9 @@ class InputAutocomplete {
       return false;
     }
 
-    window.fetch(`${api_url}?q=${query}&access_token=${GITHUB_TOKEN}`)
-      .then(response => {
-        if (response.ok)
-          return response.json();
-        else
-          console.log('Network response was not ok.');
-      })
-      .then(response_obj => {
-        if (fetchId === this.fetchId)
-          this.renderMenu(response_obj, query)
-      })
-      .catch(error => console.dir(error));
+    this.fetchFrom(`${api_url}?q=${query}&access_token=${GITHUB_TOKEN}`,
+      response => this.renderMenu(response, query)
+    );
   }
   onkeydown(event) {
     const key = event.which || event.keyCode;
@@ -92,6 +81,23 @@ class InputAutocomplete {
 
       this.highlightItem(items[index]);
     }
+  }
+  fetchFrom(url, callback) {
+    const fetchId = Symbol();
+    this.fetchId = fetchId;
+
+    window.fetch(url)
+      .then(response => {
+        if (response.ok)
+          return response.json();
+        else
+          console.log('Network response was not ok.');
+      })
+      .then(response_obj => {
+        if (fetchId === this.fetchId)
+          callback(response_obj)
+      })
+      .catch(error => console.log(error.stack));
   }
   showMenu() {
     if (this.input.value.trim() !== "")

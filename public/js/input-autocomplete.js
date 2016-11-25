@@ -71,8 +71,6 @@ var InputAutocomplete = function () {
 
       var api_url = "https://api.github.com/search/users";
       var query = this.input.value.trim();
-      var fetchId = Symbol();
-      this.fetchId = fetchId;
 
       if (query === "") {
         this.hideMenu();
@@ -82,12 +80,8 @@ var InputAutocomplete = function () {
         return false;
       }
 
-      window.fetch(api_url + "?q=" + query + "&access_token=" + GITHUB_TOKEN).then(function (response) {
-        if (response.ok) return response.json();else console.log('Network response was not ok.');
-      }).then(function (response_obj) {
-        if (fetchId === _this2.fetchId) _this2.renderMenu(response_obj, query);
-      }).catch(function (error) {
-        return console.dir(error);
+      this.fetchFrom(api_url + "?q=" + query + "&access_token=" + GITHUB_TOKEN, function (response) {
+        return _this2.renderMenu(response, query);
       });
     }
   }, {
@@ -113,6 +107,22 @@ var InputAutocomplete = function () {
       }
     }
   }, {
+    key: "fetchFrom",
+    value: function fetchFrom(url, callback) {
+      var _this3 = this;
+
+      var fetchId = Symbol();
+      this.fetchId = fetchId;
+
+      window.fetch(url).then(function (response) {
+        if (response.ok) return response.json();else console.log('Network response was not ok.');
+      }).then(function (response_obj) {
+        if (fetchId === _this3.fetchId) callback(response_obj);
+      }).catch(function (error) {
+        return console.log(error.stack);
+      });
+    }
+  }, {
     key: "showMenu",
     value: function showMenu() {
       if (this.input.value.trim() !== "") this.menu.classList.remove('c-input-autocomplete__menu--hidden');
@@ -125,7 +135,7 @@ var InputAutocomplete = function () {
   }, {
     key: "renderMenu",
     value: function renderMenu(response, query) {
-      var _this3 = this;
+      var _this4 = this;
 
       var items = this.createItems(response, query);
       this.menu.innerHTML = "";
@@ -139,7 +149,7 @@ var InputAutocomplete = function () {
         if (index === 0) {
           item.classList.add('c-input-autocomplete__item--highlight');
         }
-        _this3.menu.appendChild(item);
+        _this4.menu.appendChild(item);
       });
 
       this.showMenu();
