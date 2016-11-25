@@ -18,7 +18,7 @@ class InputAutocomplete {
     icon.className = `${main_class}__icon`;
     icon.src = "img/search.svg";
     icon.draggable = false;
-    icon.onclick = () => { input.focus() };
+    icon.onclick = () => input.focus();
     wrapper.appendChild(icon);
 
     wrapper.appendChild(input);
@@ -37,7 +37,6 @@ class InputAutocomplete {
     input.addEventListener('keydown', event => this.onkeydown(event));
     input.addEventListener('focus',   () => this.showMenu());
 
-    menu.addEventListener('click', () => this.hideMenu());
     menu.addEventListener('mousemove', (event) =>
       this.highlightItem(this.getParentItem(event.target))
     );
@@ -131,6 +130,7 @@ class InputAutocomplete {
       wrapper.className = "c-input-autocomplete__item";
       wrapper.href = item.html_url;
       wrapper.target = "_blank";
+      wrapper.onclick = () => this.hideMenu();
 
       const avatar = document.createElement('img');
       avatar.className = "c-input-autocomplete__avatar";

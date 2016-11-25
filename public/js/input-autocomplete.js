@@ -30,7 +30,7 @@ var InputAutocomplete = function () {
     icon.src = "img/search.svg";
     icon.draggable = false;
     icon.onclick = function () {
-      input.focus();
+      return input.focus();
     };
     wrapper.appendChild(icon);
 
@@ -56,9 +56,6 @@ var InputAutocomplete = function () {
       return _this.showMenu();
     });
 
-    menu.addEventListener('click', function () {
-      return _this.hideMenu();
-    });
     menu.addEventListener('mousemove', function (event) {
       return _this.highlightItem(_this.getParentItem(event.target));
     });
@@ -158,11 +155,16 @@ var InputAutocomplete = function () {
   }, {
     key: "createItems",
     value: function createItems(response, query) {
+      var _this5 = this;
+
       return response.items.slice(0, 5).map(function (item) {
         var wrapper = document.createElement('a');
         wrapper.className = "c-input-autocomplete__item";
         wrapper.href = item.html_url;
         wrapper.target = "_blank";
+        wrapper.onclick = function () {
+          return _this5.hideMenu();
+        };
 
         var avatar = document.createElement('img');
         avatar.className = "c-input-autocomplete__avatar";
