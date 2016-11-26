@@ -17,34 +17,34 @@ var InputAutocomplete = function () {
 
     _classCallCheck(this, InputAutocomplete);
 
-    var main_class = "c-input-autocomplete";
+    var MAIN_CLASS = "c-input-autocomplete";
 
-    if (input.classList.contains(main_class + "__input")) return false;else input.classList.add(main_class + "__input");
+    if (input.classList.contains(MAIN_CLASS + "__input")) return false;else input.classList.add(MAIN_CLASS + "__input");
 
-    var wrapper = document.createElement('div');
-    wrapper.className = main_class;
-    input.parentNode.insertBefore(wrapper, input);
+    var WRAPPER = document.createElement('div');
+    WRAPPER.className = MAIN_CLASS;
+    input.parentNode.insertBefore(WRAPPER, input);
 
-    var icon = document.createElement('img');
-    icon.className = main_class + "__icon";
-    icon.src = "img/search.svg";
-    icon.draggable = false;
-    icon.onclick = function () {
+    var ICON = document.createElement('img');
+    ICON.className = MAIN_CLASS + "__icon";
+    ICON.src = "img/search.svg";
+    ICON.draggable = false;
+    ICON.onclick = function () {
       return input.focus();
     };
-    wrapper.appendChild(icon);
+    WRAPPER.appendChild(ICON);
 
-    wrapper.appendChild(input);
+    WRAPPER.appendChild(input);
 
-    var menu_wrapper = document.createElement('div');
-    menu_wrapper.className = main_class + "__menu-wrapper";
-    wrapper.appendChild(menu_wrapper);
+    var MENU_WRAPPER = document.createElement('div');
+    MENU_WRAPPER.className = MAIN_CLASS + "__menu-wrapper";
+    WRAPPER.appendChild(MENU_WRAPPER);
 
-    var menu = document.createElement('div');
-    menu.className = main_class + "__menu " + main_class + "__menu--hidden";
-    menu_wrapper.appendChild(menu);
+    var MENU = document.createElement('div');
+    MENU.className = MAIN_CLASS + "__menu " + MAIN_CLASS + "__menu--hidden";
+    MENU_WRAPPER.appendChild(MENU);
 
-    _extends(this, { input: input, menu: menu, fetchId: null, oldValue: "" });
+    _extends(this, { input: input, menu: MENU, fetchId: null, oldValue: "" });
 
     input.addEventListener('keyup', function (event) {
       return _this.onkeyup(event);
@@ -56,7 +56,7 @@ var InputAutocomplete = function () {
       return _this.showMenu();
     });
 
-    menu.addEventListener('mousemove', function (event) {
+    MENU.addEventListener('mousemove', function (event) {
       return _this.highlightItem(_this.getParentItem(event.target));
     });
   }
@@ -66,41 +66,41 @@ var InputAutocomplete = function () {
     value: function onkeyup() {
       var _this2 = this;
 
-      var api_url = "https://api.github.com/search/users";
-      var query = this.input.value.trim();
+      var API_URL = "https://api.github.com/search/users";
+      var QUERY = this.input.value.trim();
 
-      if (query === "") {
+      if (QUERY === "") {
         this.hideMenu();
         return false;
       }
-      if (this.oldValue === query) {
+      if (this.oldValue === QUERY) {
         return false;
       }
 
-      this.fetchFrom(api_url + "?q=" + query + "&access_token=" + GITHUB_TOKEN, function (response) {
-        return _this2.renderMenu(response, query);
+      this.fetchFrom(API_URL + "?q=" + QUERY + "&access_token=" + GITHUB_TOKEN, function (response) {
+        return _this2.renderMenu(response, QUERY);
       });
     }
   }, {
     key: "onkeydown",
     value: function onkeydown(event) {
-      var key = event.which || event.keyCode;
+      var KEY = event.which || event.keyCode;
 
-      if (key === KEY_ENTER) {
+      if (KEY === KEY_ENTER) {
         event.preventDefault();
         this.input.blur();
         this.hideMenu();
         window.open(this.getHighlightedItem().href, '_blank');
-      } else if (key === KEY_DOWN || key === KEY_UP) {
+      } else if (KEY === KEY_DOWN || KEY === KEY_UP) {
         event.preventDefault();
-        var items = this.menu.querySelectorAll('.c-input-autocomplete__item');
-        var highlighted = this.getHighlightedItem();
+        var ITEMS = this.menu.querySelectorAll('.c-input-autocomplete__item');
+        var HIGHLIGHTED = this.getHighlightedItem();
 
-        var index = Array.from(items).indexOf(highlighted);
+        var index = Array.from(ITEMS).indexOf(HIGHLIGHTED);
 
-        if (key == KEY_DOWN) index++;else if (key == KEY_UP) index--;
+        if (KEY == KEY_DOWN) index++;else if (KEY == KEY_UP) index--;
 
-        this.highlightItem(items[index]);
+        this.highlightItem(ITEMS[index]);
       }
     }
   }, {
@@ -108,13 +108,13 @@ var InputAutocomplete = function () {
     value: function fetchFrom(url, callback) {
       var _this3 = this;
 
-      var fetchId = Symbol();
-      this.fetchId = fetchId;
+      var FETCH_ID = Symbol();
+      this.fetchId = FETCH_ID;
 
       window.fetch(url).then(function (response) {
         if (response.ok) return response.json();else console.log('Network response was not ok.');
       }).then(function (response_obj) {
-        if (fetchId === _this3.fetchId) callback(response_obj);
+        if (FETCH_ID === _this3.fetchId) callback(response_obj);
       }).catch(function (error) {
         return console.log(error.stack);
       });
@@ -134,15 +134,15 @@ var InputAutocomplete = function () {
     value: function renderMenu(response, query) {
       var _this4 = this;
 
-      var items = this.createItems(response, query);
+      var ITEMS = this.createItems(response, query);
       this.menu.innerHTML = "";
 
-      var title = document.createElement('div');
-      title.className = "c-input-autocomplete__menu-title";
-      title.innerText = this.getTitle(items.length);
-      this.menu.appendChild(title);
+      var TITLE = document.createElement('div');
+      TITLE.className = "c-input-autocomplete__menu-title";
+      TITLE.innerText = this.getTitle(ITEMS.length);
+      this.menu.appendChild(TITLE);
 
-      items.map(function (item, index) {
+      ITEMS.map(function (item, index) {
         if (index === 0) {
           item.classList.add('c-input-autocomplete__item--highlight');
         }
@@ -158,26 +158,26 @@ var InputAutocomplete = function () {
       var _this5 = this;
 
       return response.items.slice(0, 5).map(function (item) {
-        var wrapper = document.createElement('a');
-        wrapper.className = "c-input-autocomplete__item";
-        wrapper.href = item.html_url;
-        wrapper.target = "_blank";
-        wrapper.onclick = function () {
+        var WRAPPER = document.createElement('a');
+        WRAPPER.className = "c-input-autocomplete__item";
+        WRAPPER.href = item.html_url;
+        WRAPPER.target = "_blank";
+        WRAPPER.onclick = function () {
           return _this5.hideMenu();
         };
 
-        var avatar = document.createElement('img');
-        avatar.className = "c-input-autocomplete__avatar";
-        avatar.src = item.avatar_url;
-        avatar.draggable = false;
-        wrapper.appendChild(avatar);
+        var AVATAR = document.createElement('img');
+        AVATAR.className = "c-input-autocomplete__avatar";
+        AVATAR.src = item.avatar_url;
+        AVATAR.draggable = false;
+        WRAPPER.appendChild(AVATAR);
 
-        var name = document.createElement('div');
-        name.className = "c-input-autocomplete__username";
-        name.innerHTML = item.login.replace(new RegExp("(" + query + ")", 'ig'), '<b>$1</b>');
-        wrapper.appendChild(name);
+        var NAME = document.createElement('div');
+        NAME.className = "c-input-autocomplete__username";
+        NAME.innerHTML = item.login.replace(new RegExp("(" + query + ")", 'ig'), '<b>$1</b>');
+        WRAPPER.appendChild(NAME);
 
-        return wrapper;
+        return WRAPPER;
       });
     }
   }, {

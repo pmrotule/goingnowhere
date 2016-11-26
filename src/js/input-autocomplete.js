@@ -3,87 +3,87 @@ const KEY_ENTER = 13, KEY_UP = 38, KEY_DOWN = 40;
 
 class InputAutocomplete {
   constructor(input) {
-    const main_class = "c-input-autocomplete";
+    const MAIN_CLASS = "c-input-autocomplete";
 
-    if (input.classList.contains(`${main_class}__input`))
+    if (input.classList.contains(`${MAIN_CLASS}__input`))
       return false;
     else
-      input.classList.add(`${main_class}__input`);
+      input.classList.add(`${MAIN_CLASS}__input`);
 
-    const wrapper = document.createElement('div');
-    wrapper.className = main_class;
-    input.parentNode.insertBefore(wrapper, input);
+    const WRAPPER = document.createElement('div');
+    WRAPPER.className = MAIN_CLASS;
+    input.parentNode.insertBefore(WRAPPER, input);
 
-    const icon = document.createElement('img');
-    icon.className = `${main_class}__icon`;
-    icon.src = "img/search.svg";
-    icon.draggable = false;
-    icon.onclick = () => input.focus();
-    wrapper.appendChild(icon);
+    const ICON = document.createElement('img');
+    ICON.className = `${MAIN_CLASS}__icon`;
+    ICON.src = "img/search.svg";
+    ICON.draggable = false;
+    ICON.onclick = () => input.focus();
+    WRAPPER.appendChild(ICON);
 
-    wrapper.appendChild(input);
+    WRAPPER.appendChild(input);
 
-    const menu_wrapper = document.createElement('div');
-    menu_wrapper.className = `${main_class}__menu-wrapper`;
-    wrapper.appendChild(menu_wrapper);
+    const MENU_WRAPPER = document.createElement('div');
+    MENU_WRAPPER.className = `${MAIN_CLASS}__menu-wrapper`;
+    WRAPPER.appendChild(MENU_WRAPPER);
 
-    const menu = document.createElement('div');
-    menu.className = `${main_class}__menu ${main_class}__menu--hidden`;
-    menu_wrapper.appendChild(menu);
+    const MENU = document.createElement('div');
+    MENU.className = `${MAIN_CLASS}__menu ${MAIN_CLASS}__menu--hidden`;
+    MENU_WRAPPER.appendChild(MENU);
 
-    Object.assign(this, { input, menu, fetchId: null, oldValue: "" });
+    Object.assign(this, { input, menu: MENU, fetchId: null, oldValue: "" });
 
     input.addEventListener('keyup',   event => this.onkeyup(event));
     input.addEventListener('keydown', event => this.onkeydown(event));
     input.addEventListener('focus',   () => this.showMenu());
 
-    menu.addEventListener('mousemove', (event) =>
+    MENU.addEventListener('mousemove', (event) =>
       this.highlightItem(this.getParentItem(event.target))
     );
   }
   onkeyup() {
-    const api_url = "https://api.github.com/search/users";
-    const query = this.input.value.trim();
+    const API_URL = "https://api.github.com/search/users";
+    const QUERY = this.input.value.trim();
 
-    if (query === "") {
+    if (QUERY === "") {
       this.hideMenu();
       return false;
     }
-    if (this.oldValue === query) {
+    if (this.oldValue === QUERY) {
       return false;
     }
 
-    this.fetchFrom(`${api_url}?q=${query}&access_token=${GITHUB_TOKEN}`,
-      response => this.renderMenu(response, query)
+    this.fetchFrom(`${API_URL}?q=${QUERY}&access_token=${GITHUB_TOKEN}`,
+      response => this.renderMenu(response, QUERY)
     );
   }
   onkeydown(event) {
-    const key = event.which || event.keyCode;
+    const KEY = event.which || event.keyCode;
 
-    if (key === KEY_ENTER) {
+    if (KEY === KEY_ENTER) {
       event.preventDefault();
       this.input.blur();
       this.hideMenu();
       window.open(this.getHighlightedItem().href, '_blank');
     }
-    else if (key === KEY_DOWN || key === KEY_UP) {
+    else if (KEY === KEY_DOWN || KEY === KEY_UP) {
       event.preventDefault();
-      const items = this.menu.querySelectorAll('.c-input-autocomplete__item');
-      const highlighted = this.getHighlightedItem();
+      const ITEMS = this.menu.querySelectorAll('.c-input-autocomplete__item');
+      const HIGHLIGHTED = this.getHighlightedItem();
 
-      let index = Array.from(items).indexOf(highlighted);
+      let index = Array.from(ITEMS).indexOf(HIGHLIGHTED);
 
-      if (key == KEY_DOWN)
+      if (KEY == KEY_DOWN)
         index++;
-      else if (key == KEY_UP)
+      else if (KEY == KEY_UP)
         index--;
 
-      this.highlightItem(items[index]);
+      this.highlightItem(ITEMS[index]);
     }
   }
   fetchFrom(url, callback) {
-    const fetchId = Symbol();
-    this.fetchId = fetchId;
+    const FETCH_ID = Symbol();
+    this.fetchId = FETCH_ID;
 
     window.fetch(url)
       .then(response => {
@@ -93,7 +93,7 @@ class InputAutocomplete {
           console.log('Network response was not ok.');
       })
       .then(response_obj => {
-        if (fetchId === this.fetchId)
+        if (FETCH_ID === this.fetchId)
           callback(response_obj)
       })
       .catch(error => console.log(error.stack));
@@ -106,15 +106,15 @@ class InputAutocomplete {
     this.menu.classList.add('c-input-autocomplete__menu--hidden');
   }
   renderMenu(response, query) {
-    const items = this.createItems(response, query);
+    const ITEMS = this.createItems(response, query);
     this.menu.innerHTML = "";
 
-    const title = document.createElement('div');
-    title.className = "c-input-autocomplete__menu-title";
-    title.innerText = this.getTitle(items.length);
-    this.menu.appendChild(title);
+    const TITLE = document.createElement('div');
+    TITLE.className = "c-input-autocomplete__menu-title";
+    TITLE.innerText = this.getTitle(ITEMS.length);
+    this.menu.appendChild(TITLE);
 
-    items.map((item, index) => {
+    ITEMS.map((item, index) => {
       if (index === 0) {
         item.classList.add('c-input-autocomplete__item--highlight');
       }
@@ -126,25 +126,25 @@ class InputAutocomplete {
   }
   createItems(response, query) {
     return response.items.slice(0, 5).map(item => {
-      const wrapper = document.createElement('a');
-      wrapper.className = "c-input-autocomplete__item";
-      wrapper.href = item.html_url;
-      wrapper.target = "_blank";
-      wrapper.onclick = () => this.hideMenu();
+      const WRAPPER = document.createElement('a');
+      WRAPPER.className = "c-input-autocomplete__item";
+      WRAPPER.href = item.html_url;
+      WRAPPER.target = "_blank";
+      WRAPPER.onclick = () => this.hideMenu();
 
-      const avatar = document.createElement('img');
-      avatar.className = "c-input-autocomplete__avatar";
-      avatar.src = item.avatar_url;
-      avatar.draggable = false;
-      wrapper.appendChild(avatar);
+      const AVATAR = document.createElement('img');
+      AVATAR.className = "c-input-autocomplete__avatar";
+      AVATAR.src = item.avatar_url;
+      AVATAR.draggable = false;
+      WRAPPER.appendChild(AVATAR);
 
-      const name = document.createElement('div');
-      name.className = "c-input-autocomplete__username";
-      name.innerHTML = item.login
+      const NAME = document.createElement('div');
+      NAME.className = "c-input-autocomplete__username";
+      NAME.innerHTML = item.login
         .replace(new RegExp(`(${query})`, 'ig'), '<b>$1</b>');
-      wrapper.appendChild(name);
+      WRAPPER.appendChild(NAME);
 
-      return wrapper;
+      return WRAPPER;
     });
   }
   highlightItem(item) {
