@@ -7,9 +7,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var GITHUB_TOKEN = "f28435cfc0d491276c66b6509818317912adc143";
-var KEY_ENTER = 13,
-    KEY_UP = 38,
-    KEY_DOWN = 40;
+var ENTER_KEY = 13,
+    ARROW_UP_KEY = 38,
+    ARROW_DOWN_KEY = 40;
 
 var InputAutocomplete = function () {
   function InputAutocomplete(input) {
@@ -47,10 +47,10 @@ var InputAutocomplete = function () {
     _extends(this, { input: input, menu: MENU, fetchId: null, oldValue: "" });
 
     input.addEventListener('keyup', function (event) {
-      return _this.onkeyup(event);
+      return _this.onQueryChange(event);
     });
     input.addEventListener('keydown', function (event) {
-      return _this.onkeydown(event);
+      return _this.onMenuControl(event);
     });
     input.addEventListener('focus', function () {
       return _this.showMenu();
@@ -62,8 +62,8 @@ var InputAutocomplete = function () {
   }
 
   _createClass(InputAutocomplete, [{
-    key: "onkeyup",
-    value: function onkeyup() {
+    key: "onQueryChange",
+    value: function onQueryChange() {
       var _this2 = this;
 
       var API_URL = "https://api.github.com/search/users";
@@ -82,23 +82,23 @@ var InputAutocomplete = function () {
       });
     }
   }, {
-    key: "onkeydown",
-    value: function onkeydown(event) {
+    key: "onMenuControl",
+    value: function onMenuControl(event) {
       var KEY = event.which || event.keyCode;
 
-      if (KEY === KEY_ENTER) {
+      if (KEY === ENTER_KEY) {
         event.preventDefault();
         this.input.blur();
         this.hideMenu();
         window.open(this.getHighlightedItem().href, '_blank');
-      } else if (KEY === KEY_DOWN || KEY === KEY_UP) {
+      } else if (KEY === ARROW_DOWN_KEY || KEY === ARROW_UP_KEY) {
         event.preventDefault();
         var ITEMS = this.menu.querySelectorAll('.c-input-autocomplete__item');
         var HIGHLIGHTED = this.getHighlightedItem();
 
         var index = Array.from(ITEMS).indexOf(HIGHLIGHTED);
 
-        if (KEY == KEY_DOWN) index++;else if (KEY == KEY_UP) index--;
+        if (KEY == ARROW_DOWN_KEY) index++;else if (KEY == ARROW_UP_KEY) index--;
 
         this.highlightItem(ITEMS[index]);
       }

@@ -1,5 +1,5 @@
 const GITHUB_TOKEN = "f28435cfc0d491276c66b6509818317912adc143";
-const KEY_ENTER = 13, KEY_UP = 38, KEY_DOWN = 40;
+const ENTER_KEY = 13, ARROW_UP_KEY = 38, ARROW_DOWN_KEY = 40;
 
 class InputAutocomplete {
   constructor(input) {
@@ -33,15 +33,15 @@ class InputAutocomplete {
 
     Object.assign(this, { input, menu: MENU, fetchId: null, oldValue: "" });
 
-    input.addEventListener('keyup',   event => this.onkeyup(event));
-    input.addEventListener('keydown', event => this.onkeydown(event));
+    input.addEventListener('keyup',   event => this.onQueryChange(event));
+    input.addEventListener('keydown', event => this.onMenuControl(event));
     input.addEventListener('focus',   () => this.showMenu());
 
     MENU.addEventListener('mousemove', (event) =>
       this.highlightItem(this.getParentItem(event.target))
     );
   }
-  onkeyup() {
+  onQueryChange() {
     const API_URL = "https://api.github.com/search/users";
     const QUERY = this.input.value.trim();
 
@@ -57,25 +57,25 @@ class InputAutocomplete {
       response => this.renderMenu(response, QUERY)
     );
   }
-  onkeydown(event) {
+  onMenuControl(event) {
     const KEY = event.which || event.keyCode;
 
-    if (KEY === KEY_ENTER) {
+    if (KEY === ENTER_KEY) {
       event.preventDefault();
       this.input.blur();
       this.hideMenu();
       window.open(this.getHighlightedItem().href, '_blank');
     }
-    else if (KEY === KEY_DOWN || KEY === KEY_UP) {
+    else if (KEY === ARROW_DOWN_KEY || KEY === ARROW_UP_KEY) {
       event.preventDefault();
       const ITEMS = this.menu.querySelectorAll('.c-input-autocomplete__item');
       const HIGHLIGHTED = this.getHighlightedItem();
 
       let index = Array.from(ITEMS).indexOf(HIGHLIGHTED);
 
-      if (KEY == KEY_DOWN)
+      if (KEY == ARROW_DOWN_KEY)
         index++;
-      else if (KEY == KEY_UP)
+      else if (KEY == ARROW_UP_KEY)
         index--;
 
       this.highlightItem(ITEMS[index]);
